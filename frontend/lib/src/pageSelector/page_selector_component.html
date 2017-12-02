@@ -1,0 +1,52 @@
+<div>
+    <material-fab mini raised
+                  (trigger)="toFirstPage()"
+                  [disabled]="isFirstPage">
+        <glyph icon="first_page"></glyph>
+    </material-fab>
+
+    <material-fab mini raised
+                  (trigger)="toPrevPage()"
+                  [disabled]="isFirstPage">
+        <glyph icon="chevron_left"></glyph>
+    </material-fab>
+
+
+    <material-button clear-size
+                     (trigger)="toFirstPage()"
+                     [disabled]="isFirstPage">
+        1
+    </material-button>
+
+    <span *ngIf="currentPage > 3">...</span>
+
+    <material-button clear-size
+                     *ngFor="let pageNumber of middleListOfPage"
+                     (trigger)="currentPage=pageNumber"
+                     [disabled]="pageNumber == currentPage">
+        {{pageNumber}}
+    </material-button>
+
+    <span *ngIf="currentPage < maxPage-2">...</span>
+
+    <material-button clear-size
+                     *ngIf="maxPage != 1"
+                     (trigger)="toLastPage()"
+                     [disabled]="isLastPage">
+        {{maxPage}}
+    </material-button>
+
+
+    <material-fab mini raised
+                  (trigger)="toNextPage()"
+                  [disabled]="isLastPage">
+        <glyph icon="chevron_right"></glyph>
+    </material-fab>
+
+    <material-fab mini raised
+                  (trigger)="toLastPage()"
+                  [disabled]="isLastPage">
+        <glyph icon="last_page"></glyph>
+    </material-fab>
+
+</div>

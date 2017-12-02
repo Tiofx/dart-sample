@@ -4,7 +4,6 @@ import 'dart:convert';
 import 'package:angular/angular.dart';
 import 'package:frontend/src/technicalTask/item/item.dart';
 import 'package:http/http.dart';
-import 'package:http/browser_client.dart';
 
 @Injectable()
 class TableService {

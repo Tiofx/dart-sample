@@ -13,6 +13,8 @@ dependencies:
   dart_sass_transformer: any
   stream_transformers: ^0.3.0
   http: ^0.11.0
+  angular_forms: ^1.0.0
+  angular_router: ^1.0.2
 
 dev_dependencies:
   angular_test: ^1.0.0

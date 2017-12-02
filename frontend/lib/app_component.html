@@ -1,3 +1,13 @@
-<h1>My First AngularDartGolangBeego App</h1>
+<h1>AngularDart and GolangBeego App</h1>
 
-<todo-list></todo-list>
+<h2>{{title}}</h2>
+<h3>Points of statement of work</h3>
+<ul class="heroes">
+    <li *ngFor="let project of projects"
+        [class.selected]="project === selectedProject"
+        (click)="onSelect(project)">
+        <span class="badge">{{project.id}}</span> {{project.name}}
+    </li>
+</ul>
+
+<project-detail [project]="selectedProject"></project-detail>

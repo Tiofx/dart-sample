@@ -5,6 +5,7 @@ import 'package:frontend/src/base/project_service.dart';
 import 'package:frontend/src/projects/dashboard_component.dart';
 import 'package:frontend/src/projects/details/project_detail_component.dart';
 import 'package:frontend/src/projects/stages/projects_component.dart';
+import 'package:frontend/src/technicalTask/table/table_component.dart' as technical_task;
 
 @Component(
   selector: 'my-app',
@@ -13,6 +14,7 @@ import 'package:frontend/src/projects/stages/projects_component.dart';
   <nav>
     <a [routerLink]="['Dashboard']">Dashboard</a>
     <a [routerLink]="['Projects']">Projects</a>
+    <a [routerLink]="['Discussion']">Discussion</a>
   </nav>
   <router-outlet></router-outlet>
 ''',
@@ -20,7 +22,6 @@ import 'package:frontend/src/projects/stages/projects_component.dart';
   directives: const [ROUTER_DIRECTIVES],
   providers: const [ProjectService],
 )
-
 @RouteConfig(const [
   const Redirect(path: '/', redirectTo: const ['Dashboard']),
   const Route(
@@ -33,9 +34,14 @@ import 'package:frontend/src/projects/stages/projects_component.dart';
     name: 'ProjectDetail',
     component: ProjectDetailComponent,
   ),
-  const Route(path: '/projects', name: 'Projects', component: ProjectsComponent),
+  const Route(
+    path: '/technical_task',
+    name: 'Discussion',
+    component: technical_task.TableComponent,
+  ),
+  const Route(
+      path: '/projects', name: 'Projects', component: ProjectsComponent),
 ])
-
 class AppComponent {
   final title = 'Timetables';
 }

@@ -29,13 +29,11 @@ func startSide(tag string, commandForStartBackend *exec.Cmd, c chan string) {
 	reader := bufio.NewReader(stdout)
 	commandForStartBackend.Start()
 
-	for {
-		for err == nil {
-			if line, _, err := reader.ReadLine(); err == nil && len(line) != 0 {
-				c <- tag + string(line)
-			} else {
-				c <- tag + "error " + err.Error()
-			}
+	for err == nil {
+		if line, _, err := reader.ReadLine(); err == nil && len(line) != 0 {
+			c <- tag + string(line)
+		} else {
+			c <- tag + "error " + err.Error()
 		}
 	}
 }

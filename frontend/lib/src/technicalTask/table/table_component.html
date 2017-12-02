@@ -1,0 +1,12 @@
+<div>
+    <technical-task-item *ngFor="let item of items"
+                         [item]="item">
+    </technical-task-item>
+
+    <page-selector
+            [currentPage]="1"
+            [maxPage]="22"
+            (pageChange)="changePage($event)"
+    ></page-selector>
+
+</div>

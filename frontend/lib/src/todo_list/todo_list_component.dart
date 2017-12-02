@@ -34,24 +34,12 @@ class TodoListComponent implements OnInit {
     newTodo = '';
 
     var path = 'http://localhost:8080/api/';
-    var httpRequest = new HttpRequest();
-
     HttpRequest.getString(path).then((data) => print(data));
 
     HttpRequest.postFormData(path, {'data': 'data from dart'})
         .then((HttpRequest resp) {
       print(resp);
     });
-
-//    httpRequest
-//      ..open('GET', path)
-////      ..setRequestHeader('Content-Type', 'application/x-www-form-urlencoded')
-////      ..open('POST', path)
-////      ..setRequestHeader("Access-Control-Allow-Origin", "*")
-////      ..setRequestHeader("Access-Control-Allow-Methods", "POST, GET, OPTIONS")
-////      ..setRequestHeader("Access-Control-Allow-Methods", "GET")
-////      ..setRequestHeader("Content-Type", "text/plain")
-//      ..send();
   }
 
   String remove(int index) => items.removeAt(index);

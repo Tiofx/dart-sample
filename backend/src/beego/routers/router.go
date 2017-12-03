@@ -1,27 +1,60 @@
+// @APIVersion 1.0.0
+// @Title beego Test API
+// @Description beego has a very cool tools to autogenerate documents for your API
+// @Contact astaxie@gmail.com
+// @TermsOfServiceUrl http://beego.me/
+// @License Apache 2.0
+// @LicenseUrl http://www.apache.org/licenses/LICENSE-2.0.html
 package routers
 
 import (
 	"github.com/astaxie/beego"
-	"github.com/astaxie/beego/context"
 	"beego/controllers"
-	"beego/controllers/technicalTask"
+	"github.com/astaxie/beego/context"
 )
 
 func init() {
-	//beego.SetStaticPath("/styles.css","views/build/web/styles.css")
-	//beego.SetStaticPath("/main.dart.js","views/build/web/main.dart.js")
+	ns := beego.NewNamespace("/v1",
 
-	namespace := beego.NewNamespace("/api",
 		beego.NSBefore(func(context *context.Context) {
-			context.ResponseWriter.Header().Add("Access-Control-Allow-Origin", "*")
+			context.Output.Header("Access-Control-Allow-Origin", "*")
 		}),
-		beego.NSRouter("/", &controllers.MainController{}),
-		beego.NSNamespace("/technical_task",
-			beego.NSNamespace("/items",
-				beego.NSInclude(&technicalTask.ItemsController{}),
+
+		beego.NSNamespace("/projects",
+			beego.NSInclude(
+				&controllers.ProjectsController{},
+			),
+		),
+
+		beego.NSNamespace("/roles",
+			beego.NSInclude(
+				&controllers.RolesController{},
+			),
+		),
+
+		beego.NSNamespace("/task_states",
+			beego.NSInclude(
+				&controllers.TaskStatesController{},
+			),
+		),
+
+		beego.NSNamespace("/technical_task_items",
+			beego.NSInclude(
+				&controllers.TechnicalTaskItemsController{},
+			),
+		),
+
+		beego.NSNamespace("/technikca_task_states",
+			beego.NSInclude(
+				&controllers.TechnikcaTaskStatesController{},
+			),
+		),
+
+		beego.NSNamespace("/users",
+			beego.NSInclude(
+				&controllers.UsersController{},
 			),
 		),
 	)
-
-	beego.AddNamespace(namespace)
+	beego.AddNamespace(ns)
 }

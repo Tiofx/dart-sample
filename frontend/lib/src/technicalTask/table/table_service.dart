@@ -8,7 +8,7 @@ import 'package:http/http.dart';
 @Injectable()
 class TableService {
   static const _authority = 'localhost:8080';
-  static const _itemsPath = 'api/technical_task/items';
+  static const _itemsPath = 'v1/technical_task_items';
   final Client _http;
 
   TableService(this._http);

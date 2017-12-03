@@ -16,6 +16,7 @@ func main() {
 
 	go startSide("<|--- | backend  | ", commandForStartBackend, channel)
 	go startSide("---|> | frontend | ", commandForStartFrontend, channel)
+	//docker start confident_lamarr
 
 	for temp := range channel {
 		fmt.Println(temp)

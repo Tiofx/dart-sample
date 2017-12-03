@@ -9,7 +9,7 @@ import (
 
 func main() {
 	channel := make(chan string)
-	commandForStartBackend := exec.Command("bee", "run", getPathToBackend())
+	commandForStartBackend := exec.Command("bee", "run", getPathToBackend(), "-downdoc=true")
 
 	commandForStartFrontend := exec.Command("pub", "serve", "--port=8081")
 	commandForStartFrontend.Dir = getPathToFrontend()

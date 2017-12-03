@@ -1,0 +1,768 @@
+swagger: "2.0"
+info:
+  title: beego Test API
+  description: beego has a very cool tools to autogenerate documents for your API
+  version: 1.0.0
+  termsOfService: http://beego.me/
+  contact:
+    email: astaxie@gmail.com
+  license:
+    name: Apache 2.0
+    url: http://www.apache.org/licenses/LICENSE-2.0.html
+basePath: /v1
+paths:
+  /projects/:
+    get:
+      tags:
+      - projects
+      description: get Projects
+      operationId: ProjectsController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          schema:
+            $ref: '#/definitions/models.Projects'
+        "403": {}
+    post:
+      tags:
+      - projects
+      description: create Projects
+      operationId: ProjectsController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for Projects content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Projects'
+      responses:
+        "201":
+          description: '{int} models.Projects'
+        "403":
+          description: body is empty
+  /projects/{id}:
+    get:
+      tags:
+      - projects
+      description: get Projects by id
+      operationId: ProjectsController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          schema:
+            $ref: '#/definitions/models.Projects'
+        "403":
+          description: :id is empty
+    put:
+      tags:
+      - projects
+      description: update the Projects
+      operationId: ProjectsController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for Projects content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Projects'
+      responses:
+        "200":
+          schema:
+            $ref: '#/definitions/models.Projects'
+        "403":
+          description: :id is not int
+    delete:
+      tags:
+      - projects
+      description: delete the Projects
+      operationId: ProjectsController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "403":
+          description: id is empty
+  /roles/:
+    get:
+      tags:
+      - roles
+      description: get Roles
+      operationId: RolesController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          schema:
+            $ref: '#/definitions/models.Roles'
+        "403": {}
+    post:
+      tags:
+      - roles
+      description: create Roles
+      operationId: RolesController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for Roles content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Roles'
+      responses:
+        "201":
+          description: '{int} models.Roles'
+        "403":
+          description: body is empty
+  /roles/{id}:
+    get:
+      tags:
+      - roles
+      description: get Roles by id
+      operationId: RolesController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          schema:
+            $ref: '#/definitions/models.Roles'
+        "403":
+          description: :id is empty
+    put:
+      tags:
+      - roles
+      description: update the Roles
+      operationId: RolesController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for Roles content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Roles'
+      responses:
+        "200":
+          schema:
+            $ref: '#/definitions/models.Roles'
+        "403":
+          description: :id is not int
+    delete:
+      tags:
+      - roles
+      description: delete the Roles
+      operationId: RolesController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "403":
+          description: id is empty
+  /task_states/:
+    get:
+      tags:
+      - task_states
+      description: get TaskStates
+      operationId: TaskStatesController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          schema:
+            $ref: '#/definitions/models.TaskStates'
+        "403": {}
+    post:
+      tags:
+      - task_states
+      description: create TaskStates
+      operationId: TaskStatesController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for TaskStates content
+        required: true
+        schema:
+          $ref: '#/definitions/models.TaskStates'
+      responses:
+        "201":
+          description: '{int} models.TaskStates'
+        "403":
+          description: body is empty
+  /task_states/{id}:
+    get:
+      tags:
+      - task_states
+      description: get TaskStates by id
+      operationId: TaskStatesController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          schema:
+            $ref: '#/definitions/models.TaskStates'
+        "403":
+          description: :id is empty
+    put:
+      tags:
+      - task_states
+      description: update the TaskStates
+      operationId: TaskStatesController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for TaskStates content
+        required: true
+        schema:
+          $ref: '#/definitions/models.TaskStates'
+      responses:
+        "200":
+          schema:
+            $ref: '#/definitions/models.TaskStates'
+        "403":
+          description: :id is not int
+    delete:
+      tags:
+      - task_states
+      description: delete the TaskStates
+      operationId: TaskStatesController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "403":
+          description: id is empty
+  /technical_task_items/:
+    get:
+      tags:
+      - technical_task_items
+      description: get TechnicalTaskItems
+      operationId: TechnicalTaskItemsController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          schema:
+            $ref: '#/definitions/models.TechnicalTaskItems'
+        "403": {}
+    post:
+      tags:
+      - technical_task_items
+      description: create TechnicalTaskItems
+      operationId: TechnicalTaskItemsController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for TechnicalTaskItems content
+        required: true
+        schema:
+          $ref: '#/definitions/models.TechnicalTaskItems'
+      responses:
+        "201":
+          description: '{int} models.TechnicalTaskItems'
+        "403":
+          description: body is empty
+  /technical_task_items/{id}:
+    get:
+      tags:
+      - technical_task_items
+      description: get TechnicalTaskItems by id
+      operationId: TechnicalTaskItemsController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          schema:
+            $ref: '#/definitions/models.TechnicalTaskItems'
+        "403":
+          description: :id is empty
+    put:
+      tags:
+      - technical_task_items
+      description: update the TechnicalTaskItems
+      operationId: TechnicalTaskItemsController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for TechnicalTaskItems content
+        required: true
+        schema:
+          $ref: '#/definitions/models.TechnicalTaskItems'
+      responses:
+        "200":
+          schema:
+            $ref: '#/definitions/models.TechnicalTaskItems'
+        "403":
+          description: :id is not int
+    delete:
+      tags:
+      - technical_task_items
+      description: delete the TechnicalTaskItems
+      operationId: TechnicalTaskItemsController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "403":
+          description: id is empty
+  /technikca_task_states/:
+    get:
+      tags:
+      - technikca_task_states
+      description: get TechnikcaTaskStates
+      operationId: TechnikcaTaskStatesController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          schema:
+            $ref: '#/definitions/models.TechnikcaTaskStates'
+        "403": {}
+    post:
+      tags:
+      - technikca_task_states
+      description: create TechnikcaTaskStates
+      operationId: TechnikcaTaskStatesController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for TechnikcaTaskStates content
+        required: true
+        schema:
+          $ref: '#/definitions/models.TechnikcaTaskStates'
+      responses:
+        "201":
+          description: '{int} models.TechnikcaTaskStates'
+        "403":
+          description: body is empty
+  /technikca_task_states/{id}:
+    get:
+      tags:
+      - technikca_task_states
+      description: get TechnikcaTaskStates by id
+      operationId: TechnikcaTaskStatesController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          schema:
+            $ref: '#/definitions/models.TechnikcaTaskStates'
+        "403":
+          description: :id is empty
+    put:
+      tags:
+      - technikca_task_states
+      description: update the TechnikcaTaskStates
+      operationId: TechnikcaTaskStatesController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for TechnikcaTaskStates content
+        required: true
+        schema:
+          $ref: '#/definitions/models.TechnikcaTaskStates'
+      responses:
+        "200":
+          schema:
+            $ref: '#/definitions/models.TechnikcaTaskStates'
+        "403":
+          description: :id is not int
+    delete:
+      tags:
+      - technikca_task_states
+      description: delete the TechnikcaTaskStates
+      operationId: TechnikcaTaskStatesController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "403":
+          description: id is empty
+  /users/:
+    get:
+      tags:
+      - users
+      description: get Users
+      operationId: UsersController.Get All
+      parameters:
+      - in: query
+        name: query
+        description: Filter. e.g. col1:v1,col2:v2 ...
+        type: string
+      - in: query
+        name: fields
+        description: Fields returned. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: sortby
+        description: Sorted-by fields. e.g. col1,col2 ...
+        type: string
+      - in: query
+        name: order
+        description: Order corresponding to each sortby field, if single value, apply
+          to all sortby fields. e.g. desc,asc ...
+        type: string
+      - in: query
+        name: limit
+        description: Limit the size of result set. Must be an integer
+        type: string
+      - in: query
+        name: offset
+        description: Start position of result set. Must be an integer
+        type: string
+      responses:
+        "200":
+          schema:
+            $ref: '#/definitions/models.Users'
+        "403": {}
+    post:
+      tags:
+      - users
+      description: create Users
+      operationId: UsersController.Post
+      parameters:
+      - in: body
+        name: body
+        description: body for Users content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Users'
+      responses:
+        "201":
+          description: '{int} models.Users'
+        "403":
+          description: body is empty
+  /users/{id}:
+    get:
+      tags:
+      - users
+      description: get Users by id
+      operationId: UsersController.Get One
+      parameters:
+      - in: path
+        name: id
+        description: The key for staticblock
+        required: true
+        type: string
+      responses:
+        "200":
+          schema:
+            $ref: '#/definitions/models.Users'
+        "403":
+          description: :id is empty
+    put:
+      tags:
+      - users
+      description: update the Users
+      operationId: UsersController.Put
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to update
+        required: true
+        type: string
+      - in: body
+        name: body
+        description: body for Users content
+        required: true
+        schema:
+          $ref: '#/definitions/models.Users'
+      responses:
+        "200":
+          schema:
+            $ref: '#/definitions/models.Users'
+        "403":
+          description: :id is not int
+    delete:
+      tags:
+      - users
+      description: delete the Users
+      operationId: UsersController.Delete
+      parameters:
+      - in: path
+        name: id
+        description: The id you want to delete
+        required: true
+        type: string
+      responses:
+        "200":
+          description: '{string} delete success!'
+        "403":
+          description: id is empty
+definitions:
+  models.Projects:
+    title: Projects
+    type: object
+    properties:
+      AuthorId:
+        $ref: '#/definitions/models.Users'
+      Id:
+        type: integer
+        format: int64
+      Name:
+        type: string
+  models.Roles:
+    title: Roles
+    type: object
+    properties:
+      Id:
+        type: integer
+        format: int64
+      Name:
+        type: string
+  models.TaskStates:
+    title: TaskStates
+    type: object
+    properties:
+      Id:
+        type: integer
+        format: int64
+      Name:
+        type: string
+  models.TechnicalTaskItems:
+    title: TechnicalTaskItems
+    type: object
+    properties:
+      AuthorId:
+        $ref: '#/definitions/models.Users'
+      Date:
+        type: string
+        format: string
+      Description:
+        type: string
+      Id:
+        type: integer
+        format: int64
+      Name:
+        type: string
+      TechnikcaTaskStateId:
+        $ref: '#/definitions/models.TechnikcaTaskStates'
+  models.TechnikcaTaskStates:
+    title: TechnikcaTaskStates
+    type: object
+    properties:
+      Id:
+        type: integer
+        format: int64
+      Name:
+        type: string
+  models.Users:
+    title: Users
+    type: object
+    properties:
+      Id:
+        type: integer
+        format: int64
+      Login:
+        type: string
+      Password:
+        type: string
+      RoleId:
+        $ref: '#/definitions/models.Roles'
+tags:
+- name: projects
+  description: |
+    ProjectsController operations for Projects
+- name: roles
+  description: |
+    RolesController operations for Roles
+- name: task_states
+  description: |
+    TaskStatesController operations for TaskStates
+- name: technical_task_items
+  description: |
+    TechnicalTaskItemsController operations for TechnicalTaskItems
+- name: technikca_task_states
+  description: |
+    TechnikcaTaskStatesController operations for TechnikcaTaskStates
+- name: users
+  description: |
+    UsersController operations for Users

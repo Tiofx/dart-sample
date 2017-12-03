@@ -1,0 +1,4 @@
+*
+!.gitignore
+!swagger.json
+!swagger.yml

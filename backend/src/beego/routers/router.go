@@ -32,6 +32,12 @@ func init() {
 			),
 		),
 
+		beego.NSNamespace("/tasks",
+			beego.NSInclude(
+				&controllers.TasksController{},
+			),
+		),
+
 		beego.NSNamespace("/task_states",
 			beego.NSInclude(
 				&controllers.TaskStatesController{},

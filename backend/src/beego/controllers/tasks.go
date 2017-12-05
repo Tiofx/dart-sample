@@ -10,13 +10,13 @@ import (
 	"beego/models"
 )
 
-// StagesController operations for Stages
-type StagesController struct {
+// TasksController operations for Tasks
+type TasksController struct {
 	beego.Controller
 }
 
 // URLMapping ...
-func (c *StagesController) URLMapping() {
+func (c *TasksController) URLMapping() {
 	c.Mapping("Post", c.Post)
 	c.Mapping("GetOne", c.GetOne)
 	c.Mapping("GetAll", c.GetAll)
@@ -26,15 +26,15 @@ func (c *StagesController) URLMapping() {
 
 // Post ...
 // @Title Post
-// @Description create Stages
-// @Param	body		body 	models.Stages	true		"body for Stages content"
-// @Success 201 {int} models.Stages
+// @Description create Tasks
+// @Param	body		body 	models.Tasks	true		"body for Tasks content"
+// @Success 201 {int} models.Tasks
 // @Failure 403 body is empty
 // @router / [post]
-func (c *StagesController) Post() {
-	var v models.Stages
+func (c *TasksController) Post() {
+	var v models.Tasks
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if _, err := models.AddStages(&v); err == nil {
+		if _, err := models.AddTasks(&v); err == nil {
 			c.Ctx.Output.SetStatus(201)
 			c.Data["json"] = v
 		} else {
@@ -48,15 +48,15 @@ func (c *StagesController) Post() {
 
 // GetOne ...
 // @Title Get One
-// @Description get Stages by id
+// @Description get Tasks by id
 // @Param	id		path 	string	true		"The key for staticblock"
-// @Success 200 {object} models.Stages
+// @Success 200 {object} models.Tasks
 // @Failure 403 :id is empty
 // @router /:id [get]
-func (c *StagesController) GetOne() {
+func (c *TasksController) GetOne() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v, err := models.GetStagesById(id)
+	v, err := models.GetTasksById(id)
 	if err != nil {
 		c.Data["json"] = err.Error()
 	} else {
@@ -67,17 +67,17 @@ func (c *StagesController) GetOne() {
 
 // GetAll ...
 // @Title Get All
-// @Description get Stages
+// @Description get Tasks
 // @Param	query	query	string	false	"Filter. e.g. col1:v1,col2:v2 ..."
 // @Param	fields	query	string	false	"Fields returned. e.g. col1,col2 ..."
 // @Param	sortby	query	string	false	"Sorted-by fields. e.g. col1,col2 ..."
 // @Param	order	query	string	false	"Order corresponding to each sortby field, if single value, apply to all sortby fields. e.g. desc,asc ..."
 // @Param	limit	query	string	false	"Limit the size of result set. Must be an integer"
 // @Param	offset	query	string	false	"Start position of result set. Must be an integer"
-// @Success 200 {object} models.Stages
+// @Success 200 {object} models.Tasks
 // @Failure 403
 // @router / [get]
-func (c *StagesController) GetAll() {
+func (c *TasksController) GetAll() {
 	var fields []string
 	var sortby []string
 	var order []string
@@ -119,7 +119,7 @@ func (c *StagesController) GetAll() {
 		}
 	}
 
-	l, err := models.GetAllStages(query, fields, sortby, order, offset, limit)
+	l, err := models.GetAllTasks(query, fields, sortby, order, offset, limit)
 	if err != nil {
 		c.Data["json"] = err.Error()
 	} else {
@@ -130,18 +130,18 @@ func (c *StagesController) GetAll() {
 
 // Put ...
 // @Title Put
-// @Description update the Stages
+// @Description update the Tasks
 // @Param	id		path 	string	true		"The id you want to update"
-// @Param	body		body 	models.Stages	true		"body for Stages content"
-// @Success 200 {object} models.Stages
+// @Param	body		body 	models.Tasks	true		"body for Tasks content"
+// @Success 200 {object} models.Tasks
 // @Failure 403 :id is not int
 // @router /:id [put]
-func (c *StagesController) Put() {
+func (c *TasksController) Put() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	v := models.Stages{Id: id}
+	v := models.Tasks{Id: id}
 	if err := json.Unmarshal(c.Ctx.Input.RequestBody, &v); err == nil {
-		if err := models.UpdateStagesById(&v); err == nil {
+		if err := models.UpdateTasksById(&v); err == nil {
 			c.Data["json"] = "OK"
 		} else {
 			c.Data["json"] = err.Error()
@@ -154,15 +154,15 @@ func (c *StagesController) Put() {
 
 // Delete ...
 // @Title Delete
-// @Description delete the Stages
+// @Description delete the Tasks
 // @Param	id		path 	string	true		"The id you want to delete"
 // @Success 200 {string} delete success!
 // @Failure 403 id is empty
 // @router /:id [delete]
-func (c *StagesController) Delete() {
+func (c *TasksController) Delete() {
 	idStr := c.Ctx.Input.Param(":id")
 	id, _ := strconv.Atoi(idStr)
-	if err := models.DeleteStages(id); err == nil {
+	if err := models.DeleteTasks(id); err == nil {
 		c.Data["json"] = "OK"
 	} else {
 		c.Data["json"] = err.Error()

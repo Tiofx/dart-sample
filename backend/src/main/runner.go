@@ -5,11 +5,12 @@ import (
 	"path/filepath"
 	"os/exec"
 	"bufio"
+
 )
 
 func main() {
 	channel := make(chan string)
-	commandForStartBackend := exec.Command("bee", "run", "-downdoc=true")
+	commandForStartBackend := exec.Command("bee", "run", "-downdoc=true", "-gendoc=true" )
 	commandForStartBackend.Dir = getPathToBackend()
 
 	commandForStartFrontend := exec.Command("pub", "serve", "--port=8081")
@@ -25,7 +26,6 @@ func main() {
 }
 
 func startSide(tag string, commandForStartBackend *exec.Cmd, c chan string) {
-	defer close(c)
 	stdout, err := commandForStartBackend.StdoutPipe()
 	defer stdout.Close()
 	reader := bufio.NewReader(stdout)
@@ -36,6 +36,7 @@ func startSide(tag string, commandForStartBackend *exec.Cmd, c chan string) {
 			c <- tag + string(line)
 		} else {
 			c <- tag + "error " + err.Error()
+			break
 		}
 	}
 }

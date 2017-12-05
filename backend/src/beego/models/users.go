@@ -48,7 +48,7 @@ func GetUsersById(id int) (v *Users, err error) {
 func GetAllUsers(query map[string]string, fields []string, sortby []string, order []string,
 	offset int64, limit int64) (ml []interface{}, err error) {
 	o := orm.NewOrm()
-	qs := o.QueryTable(new(Users)).RelatedSel()
+	qs := o.QueryTable(new(Users))
 	// query k=v
 	for k, v := range query {
 		// rewrite dot-notation to Object__Attribute

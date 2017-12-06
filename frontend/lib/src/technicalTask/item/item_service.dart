@@ -48,12 +48,14 @@ class ItemService {
 
 
   Future<List<Item>> getItems(int pageNumber,
-      int perPage, {String sortby, String order, int offset = 0}) async =>
+      int perPage,
+      {String query, String sortby, String order, int offset = 0}) async =>
       _http.get(
           new Uri.http(
               _authority,
               _basePath,
               {
+                'query': query,
                 'order': order ?? "",
                 'sortby': sortby ?? "",
                 'limit': '$perPage',

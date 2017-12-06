@@ -18,7 +18,7 @@ class Item implements RequestData {
       new Item(
           number: RequestData.toInt(json['Id']),
           name: json['Name'],
-          status: _toItemStatus(json['TechnikcaTaskStateId']['Id']),
+          status: toItemStatus(json['TechnikcaTaskStateId']['Id']),
           lastChangeDate: RequestData.toDateTime(json['Date']),
           description: json['Description']);
 
@@ -43,7 +43,7 @@ enum ItemStatus {
 }
 
 
-ItemStatus _toItemStatus(raw) {
+ItemStatus toItemStatus(raw) {
   if (raw is int) return ItemStatus.values[raw - 1];
   switch (raw) {
     case 'in_discussion':
@@ -67,11 +67,11 @@ ItemStatus _toItemStatus(raw) {
 
 Map _toJson(ItemStatus status) =>
     {
-      "Id": _toId(status),
+      "Id": toId(status),
       "Name": _toString(status),
     };
 
-int _toId(ItemStatus status) => status.index + 1;
+int toId(ItemStatus status) => status.index + 1;
 
 
 String _toString(ItemStatus status) {

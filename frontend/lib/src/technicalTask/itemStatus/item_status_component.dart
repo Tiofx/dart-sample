@@ -45,9 +45,6 @@ class ItemStatusComponent {
 
   List<ItemStatus> get values => ItemStatus.values;
 
-  ItemStatus parse(String status) =>
-      values.firstWhere((item) => item.toString() == status);
-
   String mapToString(ItemStatus status) {
     switch (status) {
       case ItemStatus.inDiscussion:
@@ -66,4 +63,10 @@ class ItemStatusComponent {
         throw 'Unsupported ItemStatus: [$status]';
     }
   }
+
 }
+
+
+ItemStatus parse(String status) =>
+    ItemStatus.values
+        .firstWhere((item) => item.toString() == status);

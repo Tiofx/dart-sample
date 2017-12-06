@@ -8,7 +8,7 @@ import 'package:frontend/src/technicalTask/item/item.dart';
 import 'package:frontend/src/technicalTask/item/item_component.dart';
 import 'package:frontend/src/technicalTask/item/item_service.dart';
 import 'package:frontend/src/technicalTask/itemStatus/item_status_component.dart';
-import 'package:frontend/src/technicalTask/table/util/filter_component.dart';
+import 'package:frontend/src/technicalTask/table/util/filter/filter_component.dart';
 import 'package:frontend/src/technicalTask/table/util/per_page_component.dart';
 
 
@@ -44,7 +44,9 @@ class TableComponent implements OnInit {
 
   FilterComponent filter;
 
-  int get maxPageNumber => (_recordNumber / perPage).ceil();
+  int maxPageNumber = 1;
+
+  int get maxPages => (_recordNumber / perPage).ceil();
 
   List<Item> items = [];
 
@@ -93,9 +95,36 @@ class TableComponent implements OnInit {
   }
 
   updateItems() async {
+    print(filter?.filterField);
+    print(filter?.filterValue);
+
+    var getKey = (String key) {
+      switch (key) {
+        case "Name":
+        case "Description":
+          return "${key}__startswith";
+        default:
+          return key;
+      }
+    };
+
+    var isEmpty = filter?.filterField == null || filter?.filterField == "";
+
+    var value = (filter?.rawFilterValue is ItemStatus)
+        ? toId(filter?.rawFilterValue)
+        : filter?.filterValue;
+
+    var query =
+    (isEmpty || filter?.filterValue == null) ? null
+        : "${getKey(filter.filterField)}:$value";
+
+
     print("page_number:[$pageNumber], per_page:[$perPage], offset: [$offset]");
+    print("query:[$query]");
+
     items = await service
         .getItems(pageNumber, perPage,
+        query: query,
         offset: offset,
         order: filter?.order,
         sortby: filter?.sortby
@@ -106,10 +135,13 @@ class TableComponent implements OnInit {
         .forEach(print);
   }
 
+
   updateRecordNumber() async {
     _recordNumber =
     await service
         .count()
         .then((value) => value is int ? value : 1);
+
+    maxPageNumber = maxPages;
   }
 }

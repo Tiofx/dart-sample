@@ -5,12 +5,13 @@
             (change)="update()">
     </filter>
 
+    <h2 *ngIf="items?.isEmpty ?? true">No records found</h2>
+
     <div *ngFor="let item of items">
         <technical-task-item [item]="item">
         </technical-task-item>
 
         <button (click)="removeItem(item.number)">Delete</button>
-        <!--<button (click)="">Edit</button>-->
 
         <technical-task-item-form [item]="item"
                                   [isIdReadonly]="true"

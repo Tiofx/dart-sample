@@ -3,38 +3,16 @@ import 'package:angular/angular.dart';
 import 'package:angular_components/material_button/material_button.dart';
 import 'package:frontend/src/technicalTask/item/item.dart';
 import 'package:angular_forms/angular_forms.dart' as forms;
+import 'package:frontend/src/technicalTask/itemStatus/item_status_component.dart';
+
 
 @Component(
     selector: 'filter',
-    template: '''
-    <div>
-    <span>Filter: </span>
-    
-    <label>Order:</label>
-    <select [(ngModel)]="order"
-            (change)="change()">
-    <option disabled value="">Select order</option>
-    <option value="asc" selected>Ascending</option>
-    <option value="desc">Descending</option>
-    </select>
-    
-    <label>sortby:</label>
-    <select [(ngModel)]="sortby"
-            (change)="change()">
-    <option disabled value="">Select field for sort</option>
-    <option *ngFor="let field of fields"
-            [value]="field"
-            [selected]="field==sortby"
-    >{{mapField(field)}}
-    </option>
-    
-    </select>
-    
-    </div>
-''',
+    templateUrl: 'filter_component.html',
     directives: const[
       CORE_DIRECTIVES,
       forms.formDirectives,
+      ItemStatusComponent
     ]
 )
 class FilterComponent {
@@ -43,14 +21,20 @@ class FilterComponent {
     "Name",
     "Date",
     "TechnikcaTaskStateId",
+    "Description",
   ];
   StreamController _change = new StreamController();
 
-  get fields => _fields;
+  List get fields => _fields;
 
   var order = "asc";
+  var sortby = "Id";
 
-  String sortby = "Id";
+  String filterField;
+  dynamic rawFilterValue;
+
+  get filterValue => rawFilterValue;
+
 
   @Output()
   Stream get filterChange => _change.stream;

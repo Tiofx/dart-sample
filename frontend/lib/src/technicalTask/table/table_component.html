@@ -20,10 +20,10 @@
         ></technical-task-item-form>
     </div>
 
-    <page-selector
+    <page-selector #pageSelector
             [currentPage]="1"
             [maxPage]="maxPageNumber"
-            (pageChange)="changePage($event)"
+            (pageChange)="changePage($event,pageSelector)"
     ></page-selector>
 
     <per-page-selector [currentNumber]="perPage"

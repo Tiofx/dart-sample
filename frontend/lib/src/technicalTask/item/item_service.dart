@@ -13,10 +13,16 @@ class ItemService {
 
   ItemService(this._http);
 
-  Future<int> count() async =>
-      _http.get(new Uri.http(
-          _authority, "$_basePath/count"
-      ))
+  Uri _uriForCount(String query) {
+    if (query != null) {
+      return new Uri.http(_authority, "$_basePath/count", {'query': query});
+    } else {
+      return new Uri.http(_authority, "$_basePath/count");
+    }
+  }
+
+  Future<int> count({String query}) async =>
+      _http.get(_uriForCount(query))
           .then(_extractData)
           .catchError(_handleError);
 

@@ -44,9 +44,9 @@ class TableComponent implements OnInit {
 
   FilterComponent filter;
 
-  int maxPageNumber = 1;
+//  int maxPageNumber = 1;
 
-  int get maxPages => (_recordNumber / perPage).ceil();
+  int get maxPageNumber => (_recordNumber / perPage).ceil();
 
   List<Item> items = [];
 
@@ -54,17 +54,19 @@ class TableComponent implements OnInit {
 
   @override
   ngOnInit() async {
-    update();
+//    update();
   }
 
-  changePage(int newPage) async {
+  changePage(int newPage, PageSelectorComponent page) async {
     pageNumber = newPage;
-    update();
+    await update();
+
+    page.maxPage = maxPageNumber;
   }
 
   changePerPage(int value) async {
     perPage = value;
-    update();
+    await update();
   }
 
   addItem(Item item) async {
@@ -88,13 +90,32 @@ class TableComponent implements OnInit {
     update();
   }
 
-
   update() async {
     updateItems();
     updateRecordNumber();
   }
 
   updateItems() async {
+    String query = _formQuery;
+
+
+    print("page_number:[$pageNumber], per_page:[$perPage], offset: [$offset]");
+    print("query:[$query]");
+
+    items = await service
+        .getItems(pageNumber, perPage,
+        query: query,
+        offset: offset,
+        order: filter?.order,
+        sortby: filter?.sortby
+    )
+        .then((value) => value is Exception ? <Item>[] : value);
+
+    items.map((item) => item.toJson())
+        .forEach(print);
+  }
+
+  String get _formQuery {
     print(filter?.filterField);
     print(filter?.filterValue);
 
@@ -117,31 +138,15 @@ class TableComponent implements OnInit {
     var query =
     (isEmpty || filter?.filterValue == null) ? null
         : "${getKey(filter.filterField)}:$value";
-
-
-    print("page_number:[$pageNumber], per_page:[$perPage], offset: [$offset]");
-    print("query:[$query]");
-
-    items = await service
-        .getItems(pageNumber, perPage,
-        query: query,
-        offset: offset,
-        order: filter?.order,
-        sortby: filter?.sortby
-    )
-        .then((value) => value is Exception ? <Item>[] : value);
-
-    items.map((item) => item.toJson())
-        .forEach(print);
+    return query;
   }
 
 
   updateRecordNumber() async {
-    _recordNumber =
-    await service
-        .count()
+    _recordNumber = await service
+        .count(query: _formQuery)
         .then((value) => value is int ? value : 1);
-
-    maxPageNumber = maxPages;
+    print("_recordNumber: [$_recordNumber]");
+    print("maxPageNumber: [$maxPageNumber]");
   }
 }

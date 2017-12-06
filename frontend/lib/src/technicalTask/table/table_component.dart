@@ -8,6 +8,7 @@ import 'package:frontend/src/technicalTask/item/item.dart';
 import 'package:frontend/src/technicalTask/item/item_component.dart';
 import 'package:frontend/src/technicalTask/item/item_service.dart';
 import 'package:frontend/src/technicalTask/itemStatus/item_status_component.dart';
+import 'package:frontend/src/technicalTask/table/util/filter_component.dart';
 import 'package:frontend/src/technicalTask/table/util/per_page_component.dart';
 
 
@@ -22,6 +23,8 @@ import 'package:frontend/src/technicalTask/table/util/per_page_component.dart';
       PerPageComponent,
       ItemFormComponent,
       ItemStatusComponent,
+
+      FilterComponent,
     ],
     providers: const [ItemService]
 )
@@ -38,6 +41,8 @@ class TableComponent implements OnInit {
 
   @Input()
   int offset = 0;
+
+  FilterComponent filter;
 
   int get maxPageNumber => (_recordNumber / perPage).ceil();
 
@@ -81,6 +86,7 @@ class TableComponent implements OnInit {
     update();
   }
 
+
   update() async {
     updateItems();
     updateRecordNumber();
@@ -89,7 +95,11 @@ class TableComponent implements OnInit {
   updateItems() async {
     print("page_number:[$pageNumber], per_page:[$perPage], offset: [$offset]");
     items = await service
-        .getItems(pageNumber, perPage, offset)
+        .getItems(pageNumber, perPage,
+        offset: offset,
+        order: filter?.order,
+        sortby: filter?.sortby
+    )
         .then((value) => value is Exception ? <Item>[] : value);
 
     items.map((item) => item.toJson())

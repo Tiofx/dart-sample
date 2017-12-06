@@ -1,4 +1,10 @@
 <div>
+
+    <filter #filterComponent
+            (init)="filter = filterComponent"
+            (change)="update()">
+    </filter>
+
     <div *ngFor="let item of items">
         <technical-task-item [item]="item">
         </technical-task-item>

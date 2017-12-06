@@ -46,16 +46,16 @@ class ItemService {
           .then(_extractData)
           .catchError(_handleError);
 
-  dynamic _extractData(Response response) => JSON.decode(response.body);
 
   Future<List<Item>> getItems(int pageNumber,
-      int perPage,
-      [int offset = 0]) async =>
+      int perPage, {String sortby, String order, int offset = 0}) async =>
       _http.get(
           new Uri.http(
               _authority,
               _basePath,
               {
+                'order': order ?? "",
+                'sortby': sortby ?? "",
                 'limit': '$perPage',
                 'offset': '${calculateOffset(pageNumber, perPage, offset)}',
               }
@@ -68,10 +68,13 @@ class ItemService {
               .toList())
           .catchError(_handleError);
 
+  dynamic _extractData(Response response) => JSON.decode(response.body);
+
   Exception _handleError(dynamic e) {
     print(e);
     return new Exception('Server error; cause: $e');
   }
+
 }
 
 int calculateOffset(int pageNumber, int perPage, int offset) =>

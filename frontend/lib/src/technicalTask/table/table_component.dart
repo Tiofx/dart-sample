@@ -7,6 +7,7 @@ import 'package:frontend/src/technicalTask/item/add/item_form_component.dart';
 import 'package:frontend/src/technicalTask/item/item.dart';
 import 'package:frontend/src/technicalTask/item/item_component.dart';
 import 'package:frontend/src/technicalTask/item/item_service.dart';
+import 'package:frontend/src/technicalTask/itemStatus/item_status_component.dart';
 import 'package:frontend/src/technicalTask/table/util/per_page_component.dart';
 
 
@@ -20,11 +21,13 @@ import 'package:frontend/src/technicalTask/table/util/per_page_component.dart';
       PageSelectorComponent,
       PerPageComponent,
       ItemFormComponent,
+      ItemStatusComponent,
     ],
     providers: const [ItemService]
 )
 class TableComponent implements OnInit {
   int _recordNumber = 1;
+  ItemStatus statusTest = ItemStatus.done;
   final ItemService service;
 
   @Input()
@@ -94,6 +97,9 @@ class TableComponent implements OnInit {
   }
 
   updateRecordNumber() async {
-    _recordNumber = await service.count();
+    _recordNumber =
+    await service
+        .count()
+        .then((value) => value is int ? value : 1);
   }
 }

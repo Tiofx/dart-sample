@@ -9,8 +9,11 @@ import 'package:frontend/src/technicalTask/item/item.dart';
     <select class="form-group"
     #dropdown
     (change)="selectedStatus=dropdown.value">
-      <option disabled selected value="">Select status</option>
-      <option *ngFor="let status of values" [value]="status">{{mapToString(status)}}</option>
+      <option disabled value="">Select status</option>
+      <option *ngFor="let status of values" 
+              [value]="status"
+              [selected]="selectedStatus==status">
+              {{mapToString(status)}}</option>
     </select>
 ''',
     directives: const[CORE_DIRECTIVES]

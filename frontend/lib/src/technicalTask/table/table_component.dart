@@ -22,6 +22,7 @@ import 'package:frontend/src/technicalTask/item/item_service.dart';
     providers: const [ItemService]
 )
 class TableComponent implements OnInit {
+  int _recordNumber = 1;
   final ItemService service;
 
   @Input()
@@ -33,39 +34,46 @@ class TableComponent implements OnInit {
   @Input()
   int offset = 0;
 
+  int get maxPageNumber => (_recordNumber / perPage).ceil();
+
   List<Item> items = [];
 
   TableComponent(this.service);
 
   @override
   ngOnInit() async {
-    updateItems();
+    update();
   }
 
   changePage(int newPage) async {
     pageNumber = newPage;
-    updateItems();
+    update();
   }
 
   addItem(Item item) async {
     var newItem = await service.addItem(item);
     print("new item: ${newItem.toString()}");
 
-    updateItems();
+    update();
   }
 
   editItem(Item item) async {
     var result = await service.editItem(item);
     print(result);
 
-    updateItems();
+    update();
   }
 
   removeItem(int id) async {
     var result = await service.delete(id);
     print(result);
 
+    update();
+  }
+
+  update() async {
     updateItems();
+    updateRecordNumber();
   }
 
   updateItems() async {
@@ -76,5 +84,9 @@ class TableComponent implements OnInit {
 
     items.map((item) => item.toJson())
         .forEach(print);
+  }
+
+  updateRecordNumber() async {
+    _recordNumber = await service.count();
   }
 }

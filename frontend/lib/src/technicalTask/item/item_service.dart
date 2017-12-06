@@ -13,6 +13,13 @@ class ItemService {
 
   ItemService(this._http);
 
+  Future<int> count() async =>
+      _http.get(new Uri.http(
+          _authority, "$_basePath/count"
+      ))
+          .then(_extractData)
+          .catchError(_handleError);
+
   Future<Item> addItem(Item item) async =>
       _http.post(
           new Uri.http(

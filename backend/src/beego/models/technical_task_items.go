@@ -27,6 +27,13 @@ func init() {
 	orm.RegisterModel(new(TechnicalTaskItems))
 }
 
+// CountTechnicalTaskItems get a number of TechnicalTaskItems into database and returns
+func CountTechnicalTaskItems(m *TechnicalTaskItems) (count int64, err error) {
+	o := orm.NewOrm()
+	count, err = o.QueryTable(m).Count()
+	return
+}
+
 // AddTechnicalTaskItems insert a new TechnicalTaskItems into database and returns
 // last inserted Id on success.
 func AddTechnicalTaskItems(m *TechnicalTaskItems) (id int64, err error) {

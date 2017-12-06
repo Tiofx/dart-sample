@@ -12,7 +12,7 @@ func init() {
 	orm.Debug = true
 	log := logs.NewLogger(10000)
 	log.SetLogger("console")
-	orm.RegisterDataBase("default", "mysql", "root@tcp(127.0.0.1:8088)/mydb")
+	orm.RegisterDataBase("default", "mysql", "root@tcp(127.0.0.1:8088)/web_kp")
 }
 
 func main() {

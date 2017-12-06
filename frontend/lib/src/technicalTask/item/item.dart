@@ -1,33 +1,37 @@
-import 'dart:convert';
+import 'package:frontend/src/baseEntry/user.dart';
+import 'package:frontend/src/baseEntry/request_data.dart';
 
-class Item {
+class Item implements RequestData {
   int number;
+  User author;
   String name;
   ItemStatus status;
 
   DateTime lastChangeDate;
   String description;
 
-  Item(this.number, this.name, this.status, this.lastChangeDate,
-      this.description);
+  Item({this.number, this.author, this.name, this.status, this.lastChangeDate,
+    this.description});
+
 
   factory Item.fromJson(Map<String, dynamic> json) =>
       new Item(
-          _toInt(json['id']),
-          json['name'],
-          _toItemStatus(json['status']),
-          DateTime.parse(json['last_change_date']),
-          json['description']);
+          number: RequestData.toInt(json['Id']),
+          name: json['Name'],
+          status: _toItemStatus(json['TechnikcaTaskStateId']['Id']),
+          lastChangeDate: RequestData.toDateTime(json['Date']),
+          description: json['Description']);
 
   Item.empty();
 
   Map toJson() =>
       {
-        'id': number,
-        'name': name,
-        'status': _toJson(status),
-        'last_change_date': lastChangeDate.toIso8601String(),
-        'description': description,
+        'AuthorId': author?.toJson() ?? new User(id: 1).toJson(),
+//        'Date': lastChangeDate?.toString(),
+        'Description': description,
+        'Id': number,
+        'Name': name,
+        'TechnikcaTaskStateId': _toJson(status),
       };
 }
 
@@ -38,19 +42,16 @@ enum ItemStatus {
   done
 }
 
-int _toInt(raw) => raw is int ? raw : int.parse(raw);
-
-DateTime _toDateTime(String raw) {
-
-  return DateTime.parse(raw);
-}
 
 ItemStatus _toItemStatus(raw) {
+  if (raw is int) return ItemStatus.values[raw - 1];
   switch (raw) {
     case 'in_discussion':
+    case 'in discussion':
       return ItemStatus.inDiscussion;
 
     case 'in_work':
+    case 'in work':
       return ItemStatus.inWork;
 
     case 'verify':
@@ -64,7 +65,16 @@ ItemStatus _toItemStatus(raw) {
   }
 }
 
-String _toJson(ItemStatus status) {
+Map _toJson(ItemStatus status) =>
+    {
+      "Id": _toId(status),
+      "Name": _toString(status),
+    };
+
+int _toId(ItemStatus status) => status.index + 1;
+
+
+String _toString(ItemStatus status) {
   switch (status) {
     case ItemStatus.inDiscussion:
       return 'in_discussion';

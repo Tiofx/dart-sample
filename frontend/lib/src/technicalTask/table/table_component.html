@@ -1,7 +1,17 @@
 <div>
-    <technical-task-item *ngFor="let item of items"
-                         [item]="item">
-    </technical-task-item>
+    <div *ngFor="let item of items">
+        <technical-task-item [item]="item">
+        </technical-task-item>
+
+        <button (click)="removeItem(item.number)">Delete</button>
+        <!--<button (click)="">Edit</button>-->
+
+        <technical-task-item-form [item]="item"
+                                  [isIdReadonly]="true"
+                                  submitButtonName="Edit item"
+                                  (submitItem)="editItem($event)"
+        ></technical-task-item-form>
+    </div>
 
     <page-selector
             [currentPage]="1"
@@ -9,4 +19,12 @@
             (pageChange)="changePage($event)"
     ></page-selector>
 
+
+    <br>
+    <h3> Add new Item</h3>
+    <br>
+    <technical-task-item-form
+            submitButtonName="Add item"
+            (submitItem)="addItem($event)"
+    ></technical-task-item-form>
 </div>

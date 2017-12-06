@@ -10,6 +10,7 @@ import (
 
 func main() {
 	channel := make(chan string)
+	defer close(channel)
 	commandForStartBackend := exec.Command("bee", "run", "-downdoc=true", "-gendoc=true" )
 	commandForStartBackend.Dir = getPathToBackend()
 

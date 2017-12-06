@@ -8,13 +8,14 @@ import 'package:frontend/src/base/project.dart';
 import 'package:frontend/src/base/project_service.dart';
 
 @Component(
-  selector: 'project-detail',
-  templateUrl: 'project_detail_component.html',
-  styleUrls: const ['project_detail_component.css'],
+  selector: 'project-add',
+  templateUrl: 'project_add_component.html',
+  styleUrls: const ['project_add_component.css'],
   directives: const [CORE_DIRECTIVES, formDirectives],
 )
 
-class ProjectDetailComponent implements OnInit {
+class ProjectAddComponent implements OnInit {
+  @Input()
   Project project;
 
   final ProjectService _projectService;
@@ -22,7 +23,7 @@ class ProjectDetailComponent implements OnInit {
   final Location _location;
   final Router _router;
 
-  ProjectDetailComponent(this._projectService,
+  ProjectAddComponent(this._projectService,
       this._routeParams,
       this._location,
       this._router);
@@ -33,6 +34,12 @@ class ProjectDetailComponent implements OnInit {
     if (id != null) project = await (_projectService.getProject(id));
   }
 
+  onSubmit() {
+    _submit.add(project);
+  }
+
+  final _submit = new StreamController<Project>();
+
   void goBack() => _location.back();
 
   goDelete(int recordId) async{
@@ -40,4 +47,7 @@ class ProjectDetailComponent implements OnInit {
     var result = await _projectService.deleteProject(recordId);
     print(result);
   }
+
+  void addNew(){}
+
 }

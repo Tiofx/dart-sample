@@ -1,6 +1,8 @@
 <h1>AngularDart GolangBeego App</h1>
 
 <h3>Points of statement of work</h3>
+<button (click)="gotoAddNew()" class="button button1">Add new project</button>
+
 <ul class="heroes">
     <li *ngFor="let project of projects"
         [class.selected]="project === selectedProject"

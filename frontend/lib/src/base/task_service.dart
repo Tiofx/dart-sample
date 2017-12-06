@@ -2,12 +2,12 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:angular/angular.dart';
-import 'package:frontend/src/base/project.dart';
+import 'package:frontend/src/base/task.dart';
 import 'package:http/http.dart';
 //import 'package:frontend/src/base/mock_projects.dart';
 
 @Injectable()
-class ProjectService {
+class TaskService {
 //  Future<List<Project>> getProjects() async => mockProjects;
 //  Future<Project> getProject(int id) async =>
 //      (await getProjects()).firstWhere((project) => project.id == id);
@@ -15,9 +15,9 @@ class ProjectService {
   static const _itemsPath = 'v1/projects';
   final Client _http;
 
-  ProjectService(this._http);
+  TaskService(this._http);
 
-  Future<List<Project>> getProjects() async {
+  Future<List<Task>> getTasks() async {
     try {
       final response = await _http.get(new Uri.http(
           _authority,
@@ -27,7 +27,7 @@ class ProjectService {
       print(_extractData(response));
 
       final heroes = _extractData(response)
-          .map((value) => new Project.fromJson(value))
+          .map((value) => new Task.fromJson(value))
           .toList();
       return heroes;
     } catch (e) {
@@ -35,14 +35,8 @@ class ProjectService {
     }
   }
 
-  Future<Project> getProject(int id) async =>
-      (await getProjects()).firstWhere((project) => project.id == id);
-
-  Future<String> deleteProject(int recordId) async {
-    _http.delete(new Uri.http(_authority, "$_itemsPath/$recordId"))
-        .then(_extractData)
-        .catchError(_handleError);
-  }
+  Future<Task> getTask(int id) async =>
+      (await getTasks()).firstWhere((task) => task.id == id);
 
   dynamic _extractData(Response response) => JSON.decode(response.body);
 

@@ -10,15 +10,16 @@ package routers
 import (
 	"github.com/astaxie/beego"
 	"beego/controllers"
-	"github.com/astaxie/beego/context"
+	"github.com/astaxie/beego/plugins/cors"
 )
 
 func init() {
-	ns := beego.NewNamespace("/v1",
+	beego.InsertFilter("/*", beego.BeforeRouter, cors.Allow(&cors.Options{
+		AllowAllOrigins: true,
+		AllowMethods:    []string{"GET", "POST", "PUT", "OPTIONS", "DELETE"},
+	}))
 
-		beego.NSBefore(func(context *context.Context) {
-			context.Output.Header("Access-Control-Allow-Origin", "*")
-		}),
+	ns := beego.NewNamespace("/v1",
 
 		beego.NSNamespace("/projects",
 			beego.NSInclude(

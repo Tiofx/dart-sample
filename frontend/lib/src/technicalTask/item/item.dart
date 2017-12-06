@@ -14,12 +14,11 @@ class Item implements RequestData {
     this.description});
 
 
-  //TODO: change
   factory Item.fromJson(Map<String, dynamic> json) =>
       new Item(
           number: RequestData.toInt(json['Id']),
           name: json['name'],
-          status: _toItemStatus(json['TechnikcaTaskStateId']['Name']),
+          status: _toItemStatus(json['TechnikcaTaskStateId']['Id']),
           lastChangeDate: RequestData.toDateTime(json['Date']),
           description: json['Description']);
 
@@ -45,6 +44,7 @@ enum ItemStatus {
 
 
 ItemStatus _toItemStatus(raw) {
+  if (raw is int) return ItemStatus.values[raw - 1];
   switch (raw) {
     case 'in_discussion':
     case 'in discussion':

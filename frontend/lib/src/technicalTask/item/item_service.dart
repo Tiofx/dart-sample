@@ -22,13 +22,35 @@ class ItemService {
       )
           .then(_extractData)
           .then((body) => new Item.fromJson(body))
-//        .then((body) => print(body))
           .catchError(_handleError);
 
   dynamic _extractData(Response response) => JSON.decode(response.body);
+
+  Future<List<Item>> getItems(int pageNumber,
+      int perPage,
+      [int offset = 0]) async =>
+      _http.get(
+          new Uri.http(
+              _authority,
+              _basePath,
+              {
+                'limit': '$perPage',
+                'offset': '${calculateOffset(pageNumber, perPage, offset)}',
+              }
+          )
+      )
+          .then(_extractData)
+          .then((body) =>
+          body
+              .map((value) => new Item.fromJson(value))
+              .toList())
+          .catchError(_handleError);
 
   Exception _handleError(dynamic e) {
     print(e);
     return new Exception('Server error; cause: $e');
   }
 }
+
+int calculateOffset(int pageNumber, int perPage, int offset) =>
+    offset + perPage * (pageNumber - 1);

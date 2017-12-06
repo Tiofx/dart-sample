@@ -1,7 +1,5 @@
 import 'dart:async';
-import 'dart:html';
 import 'package:angular/angular.dart';
-import 'package:angular_components/angular_components.dart';
 import 'package:frontend/src/technicalTask/item/item.dart';
 
 

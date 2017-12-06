@@ -10,18 +10,18 @@ class Item implements RequestData {
   DateTime lastChangeDate;
   String description;
 
-  Item(this.number, this.name, this.status, this.lastChangeDate,
-      this.description, {this.author});
+  Item({this.number, this.author, this.name, this.status, this.lastChangeDate,
+    this.description});
 
 
   //TODO: change
   factory Item.fromJson(Map<String, dynamic> json) =>
       new Item(
-          RequestData.toInt(json['id']),
-          json['name'],
-          _toItemStatus(json['status']),
-          DateTime.parse(json['last_change_date']),
-          json['description']);
+          number: RequestData.toInt(json['Id']),
+          name: json['name'],
+          status: _toItemStatus(json['TechnikcaTaskStateId']['Name']),
+          lastChangeDate: RequestData.toDateTime(json['Date']),
+          description: json['Description']);
 
   Item.empty();
 
@@ -47,9 +47,11 @@ enum ItemStatus {
 ItemStatus _toItemStatus(raw) {
   switch (raw) {
     case 'in_discussion':
+    case 'in discussion':
       return ItemStatus.inDiscussion;
 
     case 'in_work':
+    case 'in work':
       return ItemStatus.inWork;
 
     case 'verify':

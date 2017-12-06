@@ -7,6 +7,7 @@ import 'package:frontend/src/technicalTask/item/item.dart';
 import 'package:angular_forms/src/directives/ng_form_model.dart';
 import 'package:frontend/src/technicalTask/item/item_service.dart';
 import 'package:angular_forms/angular_forms.dart' as forms;
+import 'package:frontend/src/technicalTask/itemStatus/item_status_component.dart';
 
 @Component(
   selector: 'technical-task-item-form',
@@ -14,6 +15,7 @@ import 'package:angular_forms/angular_forms.dart' as forms;
   directives: const[
     CORE_DIRECTIVES,
     forms.formDirectives,
+    ItemStatusComponent,
   ],
 )
 class ItemFormComponent {

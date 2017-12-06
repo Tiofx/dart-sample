@@ -37,4 +37,8 @@ class ProjectsComponent implements OnInit {
     'ProjectDetail',
     {'id': selectedProject.id.toString()}
   ]);
+
+  Future<Null> gotoAddNew() => _router.navigate([
+    'AddNewProject',
+    ]);
 }

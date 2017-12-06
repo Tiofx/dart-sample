@@ -2,9 +2,11 @@ import 'package:angular/angular.dart';
 import 'package:angular_router/angular_router.dart';
 
 import 'package:frontend/src/base/project_service.dart';
+import 'package:frontend/src/projects/add/project_add_component.dart';
 import 'package:frontend/src/projects/dashboard_component.dart';
 import 'package:frontend/src/projects/details/project_detail_component.dart';
 import 'package:frontend/src/projects/stages/projects_component.dart';
+import 'package:frontend/src/tasks/stages/tasks_component.dart';
 import 'package:frontend/src/technicalTask/table/table_component.dart' as technical_task;
 
 @Component(
@@ -15,6 +17,7 @@ import 'package:frontend/src/technicalTask/table/table_component.dart' as techni
     <a [routerLink]="['Dashboard']">Dashboard</a>
     <a [routerLink]="['Projects']">Projects</a>
     <a [routerLink]="['Discussion']">Discussion</a>
+    <a [routerLink]="['Tasks']">Tasks</a>
   </nav>
   <router-outlet></router-outlet>
 ''',
@@ -40,7 +43,17 @@ import 'package:frontend/src/technicalTask/table/table_component.dart' as techni
     component: technical_task.TableComponent,
   ),
   const Route(
-      path: '/projects', name: 'Projects', component: ProjectsComponent),
+      path: '/projects', name: 'Projects', component: ProjectsComponent
+  ),
+
+  const Route(
+    path: '/tasks', name: 'Tasks', component: TasksComponent
+  ),
+
+  const Route(
+    path: '/addNewProject', name: 'AddNewProject', component: ProjectAddComponent
+  ),
+
 ])
 class AppComponent {
   final title = 'Timetables';

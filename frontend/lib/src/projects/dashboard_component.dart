@@ -22,6 +22,6 @@ class DashboardComponent implements OnInit {
   DashboardComponent(this._projectService);
 
   Future<Null> ngOnInit() async {
-    projects = (await _projectService.getProjects()).skip(1).take(4).toList();
+    projects = (await _projectService.getProjects()).take(4).toList();
   }
 }

@@ -1,7 +1,9 @@
 import 'dart:convert';
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
+import 'package:frontend/src/baseEntry/user.dart';
 import 'package:frontend/src/pageSelector/page_selector_component.dart';
+import 'package:frontend/src/technicalTask/item/add/item_form_component.dart';
 import 'package:frontend/src/technicalTask/item/item.dart';
 import 'package:frontend/src/technicalTask/item/item_component.dart';
 import 'package:frontend/src/technicalTask/item/item_service.dart';
@@ -15,6 +17,7 @@ import 'package:frontend/src/technicalTask/item/item_service.dart';
       materialDirectives,
       ItemComponent,
       PageSelectorComponent,
+      ItemFormComponent,
     ],
     providers: const [ItemService]
 )
@@ -44,6 +47,20 @@ class TableComponent implements OnInit {
     updateItems();
   }
 
+  addItem(Item item) async {
+    var newItem = await service.addItem(item);
+    print("new item: ${newItem.toString()}");
+
+    updateItems();
+  }
+
+  editItem(Item item) async {
+    var result = await service.editItem(item);
+    print(result);
+
+    updateItems();
+  }
+
   removeItem(int id) async {
     var result = await service.delete(id);
     print(result);
@@ -56,5 +73,8 @@ class TableComponent implements OnInit {
     items = await service
         .getItems(pageNumber, perPage, offset)
         .then((value) => value is Exception ? <Item>[] : value);
+
+    items.map((item) => item.toJson())
+        .forEach(print);
   }
 }

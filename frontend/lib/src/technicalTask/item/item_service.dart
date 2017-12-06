@@ -24,6 +24,16 @@ class ItemService {
           .then((body) => new Item.fromJson(body))
           .catchError(_handleError);
 
+  Future<String> editItem(Item item) async =>
+      _http.put(
+          new Uri.http(
+              _authority, "$_basePath/${item.number}"
+          ),
+          body: JSON.encode(item?.toJson())
+      )
+          .then(_extractData)
+          .catchError(_handleError);
+
   Future<String> delete(int itemId) async =>
       _http.delete(new Uri.http(_authority, "$_basePath/$itemId"))
           .then(_extractData)

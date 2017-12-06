@@ -1,3 +1,4 @@
+import 'dart:async';
 import 'package:angular/angular.dart';
 import 'package:angular/src/common/directives/core_directives.dart';
 import 'package:angular_components/angular_components.dart';
@@ -9,27 +10,34 @@ import 'package:frontend/src/technicalTask/itemStatus/item_status_component.dart
 import 'package:angular_forms/angular_forms.dart' as forms;
 
 @Component(
-    selector: 'add-item-component',
-    templateUrl: 'add_item_component.html',
-    directives: const[
-      CORE_DIRECTIVES,
-      ItemStatusComponent,
-      forms.formDirectives,
-    ],
-    providers: const[ItemService]
+  selector: 'technical-task-item-form',
+  templateUrl: 'item_form_component.html',
+  directives: const[
+    CORE_DIRECTIVES,
+    ItemStatusComponent,
+    forms.formDirectives,
+  ],
 )
-class AddItemComponent {
+class ItemFormComponent {
 
-  final item = new Item.empty();
-  final ItemService _service;
+  final _submit = new StreamController<Item>();
 
-  AddItemComponent(this._service);
+  @Input()
+  bool isIdReadonly = false;
+
+  @Input()
+  String submitButtonName = "";
+
+  @Output("submitItem")
+  Stream<Item> get submit => _submit.stream;
+
+  @Input()
+  Item item = new Item.empty();
 
   setUpNumber(double number) => item.number = number.round();
 
   onSubmit() {
-    print(item.toJson());
-    _service.addItem(item);
+    _submit.add(item);
   }
 
   clear() {

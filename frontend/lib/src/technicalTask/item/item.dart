@@ -3,7 +3,7 @@ import 'package:frontend/src/baseEntry/request_data.dart';
 
 class Item implements RequestData {
   int number;
-  User author = new User(id: 1);
+  User author;
   String name;
   ItemStatus status;
 
@@ -17,7 +17,7 @@ class Item implements RequestData {
   factory Item.fromJson(Map<String, dynamic> json) =>
       new Item(
           number: RequestData.toInt(json['Id']),
-          name: json['name'],
+          name: json['Name'],
           status: _toItemStatus(json['TechnikcaTaskStateId']['Id']),
           lastChangeDate: RequestData.toDateTime(json['Date']),
           description: json['Description']);
@@ -26,8 +26,8 @@ class Item implements RequestData {
 
   Map toJson() =>
       {
-        'AuthorId': author?.toJson(),
-        'Date': lastChangeDate?.toIso8601String(),
+        'AuthorId': author?.toJson() ?? new User(id: 1).toJson(),
+//        'Date': lastChangeDate?.toString(),
         'Description': description,
         'Id': number,
         'Name': name,

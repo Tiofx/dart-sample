@@ -3,6 +3,7 @@
     <div class="form-group">
         <lavel for="Id"></lavel>
         <input type="number" id="Id"
+               [readonly]="isIdReadonly"
                [ngModel]="item.number"
                (ngModelChange)="setUpNumber($event)"
                ngControl="Id"
@@ -31,6 +32,6 @@
                   ngControl="Description"></textarea>
     </div>
 
-    <button type="submit" [disabled]="!itemForm.form.valid">Submit</button>
+    <button type="submit" [disabled]="!itemForm.form.valid">{{submitButtonName}}</button>
     <button type="reset" (click)="clear()">Clear</button>
 </form>

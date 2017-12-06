@@ -24,6 +24,8 @@ class ItemStatusComponent {
 
   @Input()
   set selectedStatus(value) {
+    if (value == null) return;
+
     if (value is String) {
       _status = parse(value);
     } else if (value is ItemStatus) {

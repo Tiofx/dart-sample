@@ -7,6 +7,7 @@ import 'package:frontend/src/technicalTask/item/add/item_form_component.dart';
 import 'package:frontend/src/technicalTask/item/item.dart';
 import 'package:frontend/src/technicalTask/item/item_component.dart';
 import 'package:frontend/src/technicalTask/item/item_service.dart';
+import 'package:frontend/src/technicalTask/table/util/per_page_component.dart';
 
 
 @Component(
@@ -17,6 +18,7 @@ import 'package:frontend/src/technicalTask/item/item_service.dart';
       materialDirectives,
       ItemComponent,
       PageSelectorComponent,
+      PerPageComponent,
       ItemFormComponent,
     ],
     providers: const [ItemService]
@@ -47,6 +49,11 @@ class TableComponent implements OnInit {
 
   changePage(int newPage) async {
     pageNumber = newPage;
+    update();
+  }
+
+  changePerPage(int value) async {
+    perPage = value;
     update();
   }
 

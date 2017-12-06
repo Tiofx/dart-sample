@@ -19,6 +19,9 @@
             (pageChange)="changePage($event)"
     ></page-selector>
 
+    <per-page-selector [currentNumber]="perPage"
+                       (currentNumberChange)="changePerPage($event)"
+    ></per-page-selector>
 
     <br>
     <h3> Add new Item</h3>

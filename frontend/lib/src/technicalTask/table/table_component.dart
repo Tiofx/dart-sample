@@ -44,6 +44,13 @@ class TableComponent implements OnInit {
     updateItems();
   }
 
+  removeItem(int id) async {
+    var result = await service.delete(id);
+    print(result);
+
+    updateItems();
+  }
+
   updateItems() async {
     print("page_number:[$pageNumber], per_page:[$perPage], offset: [$offset]");
     items = await service

@@ -1,7 +1,10 @@
 <div>
-    <technical-task-item *ngFor="let item of items"
-                         [item]="item">
-    </technical-task-item>
+    <div *ngFor="let item of items">
+        <technical-task-item [item]="item">
+        </technical-task-item>
+
+        <button (click)="removeItem(item.number)">Удалить</button>
+    </div>
 
     <page-selector
             [currentPage]="1"

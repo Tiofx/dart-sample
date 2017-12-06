@@ -24,6 +24,11 @@ class ItemService {
           .then((body) => new Item.fromJson(body))
           .catchError(_handleError);
 
+  Future<String> delete(int itemId) async =>
+      _http.delete(new Uri.http(_authority, "$_basePath/$itemId"))
+          .then(_extractData)
+          .catchError(_handleError);
+
   dynamic _extractData(Response response) => JSON.decode(response.body);
 
   Future<List<Item>> getItems(int pageNumber,

@@ -9,8 +9,8 @@ import 'package:frontend/src/technicalTask/item/item.dart';
     selector: 'item-status',
     template: '''
     <select class="form-group"
-    [value]="selectedStatus"
-    (change)="selectedStatus=\$event.target.value">
+    #dropdown
+    (change)="selectedStatus=dropdown.value">
       <option disabled selected value="">Select status</option>
       <option *ngFor="let status of values" [value]="status">{{mapToString(status)}}</option>
     </select>
@@ -37,7 +37,7 @@ class ItemStatusComponent {
     _statusChange.add(_status);
   }
 
-  @Output("selectedStatus")
+  @Output()
   Stream<ItemStatus> get selectedStatusChange => _statusChange.stream;
 
   List<ItemStatus> get values => ItemStatus.values;

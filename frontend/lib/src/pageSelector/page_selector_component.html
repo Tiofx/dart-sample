@@ -30,7 +30,7 @@
     <span *ngIf="currentPage < maxPage-2">...</span>
 
     <material-button clear-size
-                     *ngIf="maxPage != 1"
+                     *ngIf="maxPage > 1"
                      (trigger)="toLastPage()"
                      [disabled]="isLastPage">
         {{maxPage}}

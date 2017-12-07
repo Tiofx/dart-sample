@@ -6,16 +6,16 @@ import 'package:frontend/src/baseEntry/request_data.dart';
 import 'package:frontend/src/technicalTask/item/item.dart';
 import 'package:angular_forms/src/directives/ng_form_model.dart';
 import 'package:frontend/src/technicalTask/item/item_service.dart';
-import 'package:frontend/src/technicalTask/itemStatus/item_status_component.dart';
 import 'package:angular_forms/angular_forms.dart' as forms;
+import 'package:frontend/src/technicalTask/itemStatus/item_status_component.dart';
 
 @Component(
   selector: 'technical-task-item-form',
   templateUrl: 'item_form_component.html',
   directives: const[
     CORE_DIRECTIVES,
-    ItemStatusComponent,
     forms.formDirectives,
+    ItemStatusComponent,
   ],
 )
 class ItemFormComponent {

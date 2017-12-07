@@ -27,6 +27,16 @@ func init() {
 	orm.RegisterModel(new(TechnicalTaskItems))
 }
 
+// CountTechnicalTaskItems get a number of TechnicalTaskItems into database and returns
+func CountTechnicalTaskItems(query map[string]string) (count int64, err error) {
+	o := orm.NewOrm()
+	qs := o.QueryTable(new(TechnicalTaskItems))
+	qs = setUpQuery(query, qs)
+
+	count, err = qs.Count()
+	return
+}
+
 // AddTechnicalTaskItems insert a new TechnicalTaskItems into database and returns
 // last inserted Id on success.
 func AddTechnicalTaskItems(m *TechnicalTaskItems) (id int64, err error) {
@@ -53,15 +63,7 @@ func GetAllTechnicalTaskItems(query map[string]string, fields []string, sortby [
 	o := orm.NewOrm()
 	qs := o.QueryTable(new(TechnicalTaskItems))
 	// query k=v
-	for k, v := range query {
-		// rewrite dot-notation to Object__Attribute
-		k = strings.Replace(k, ".", "__", -1)
-		if strings.Contains(k, "isnull") {
-			qs = qs.Filter(k, (v == "true" || v == "1"))
-		} else {
-			qs = qs.Filter(k, v)
-		}
-	}
+	qs = setUpQuery(query, qs)
 	// order by:
 	var sortFields []string
 	if len(sortby) != 0 {
@@ -122,6 +124,18 @@ func GetAllTechnicalTaskItems(query map[string]string, fields []string, sortby [
 		return ml, nil
 	}
 	return nil, err
+}
+func setUpQuery(query map[string]string, qs orm.QuerySeter) orm.QuerySeter {
+	for k, v := range query {
+		// rewrite dot-notation to Object__Attribute
+		k = strings.Replace(k, ".", "__", -1)
+		if strings.Contains(k, "isnull") {
+			qs = qs.Filter(k, (v == "true" || v == "1"))
+		} else {
+			qs = qs.Filter(k, v)
+		}
+	}
+	return qs
 }
 
 // UpdateTechnicalTaskItems updates TechnicalTaskItems by Id and returns error if

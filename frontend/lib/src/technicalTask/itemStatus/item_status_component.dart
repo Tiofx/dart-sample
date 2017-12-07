@@ -9,8 +9,11 @@ import 'package:frontend/src/technicalTask/item/item.dart';
     <select class="form-group"
     #dropdown
     (change)="selectedStatus=dropdown.value">
-      <option disabled selected value="">Select status</option>
-      <option *ngFor="let status of values" [value]="status">{{mapToString(status)}}</option>
+      <option disabled value="">Select status</option>
+      <option *ngFor="let status of values" 
+              [value]="status"
+              [selected]="selectedStatus==status">
+              {{mapToString(status)}}</option>
     </select>
 ''',
     directives: const[CORE_DIRECTIVES]
@@ -24,6 +27,8 @@ class ItemStatusComponent {
 
   @Input()
   set selectedStatus(value) {
+    if (value == null) return;
+
     if (value is String) {
       _status = parse(value);
     } else if (value is ItemStatus) {
@@ -39,9 +44,6 @@ class ItemStatusComponent {
   Stream<ItemStatus> get selectedStatusChange => _statusChange.stream;
 
   List<ItemStatus> get values => ItemStatus.values;
-
-  ItemStatus parse(String status) =>
-      values.firstWhere((item) => item.toString() == status);
 
   String mapToString(ItemStatus status) {
     switch (status) {
@@ -61,4 +63,10 @@ class ItemStatusComponent {
         throw 'Unsupported ItemStatus: [$status]';
     }
   }
+
 }
+
+
+ItemStatus parse(String status) =>
+    ItemStatus.values
+        .firstWhere((item) => item.toString() == status);

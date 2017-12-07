@@ -26,6 +26,7 @@ class PageSelectorComponent {
 
   @Input()
   set currentPage(int value) {
+    print("$value $maxPage");
     _currentPage = value;
     _pageChange.add(value);
   }
@@ -40,7 +41,7 @@ class PageSelectorComponent {
 
   bool get isFirstPage => currentPage == 1;
 
-  bool get isLastPage => currentPage == maxPage;
+  bool get isLastPage => currentPage >= maxPage;
 
   PageSelectorComponent();
 

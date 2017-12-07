@@ -13,6 +13,19 @@ class ItemService {
 
   ItemService(this._http);
 
+  Uri _uriForCount(String query) {
+    if (query != null) {
+      return new Uri.http(_authority, "$_basePath/count", {'query': query});
+    } else {
+      return new Uri.http(_authority, "$_basePath/count");
+    }
+  }
+
+  Future<int> count({String query}) async =>
+      _http.get(_uriForCount(query))
+          .then(_extractData)
+          .catchError(_handleError);
+
   Future<Item> addItem(Item item) async =>
       _http.post(
           new Uri.http(
@@ -39,16 +52,18 @@ class ItemService {
           .then(_extractData)
           .catchError(_handleError);
 
-  dynamic _extractData(Response response) => JSON.decode(response.body);
 
   Future<List<Item>> getItems(int pageNumber,
       int perPage,
-      [int offset = 0]) async =>
+      {String query, String sortby, String order, int offset = 0}) async =>
       _http.get(
           new Uri.http(
               _authority,
               _basePath,
               {
+                'query': query,
+                'order': order ?? "",
+                'sortby': sortby ?? "",
                 'limit': '$perPage',
                 'offset': '${calculateOffset(pageNumber, perPage, offset)}',
               }
@@ -61,10 +76,13 @@ class ItemService {
               .toList())
           .catchError(_handleError);
 
+  dynamic _extractData(Response response) => JSON.decode(response.body);
+
   Exception _handleError(dynamic e) {
     print(e);
     return new Exception('Server error; cause: $e');
   }
+
 }
 
 int calculateOffset(int pageNumber, int perPage, int offset) =>

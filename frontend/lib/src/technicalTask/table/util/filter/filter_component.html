@@ -1,0 +1,50 @@
+<div>
+    <h3>Filter </h3>
+
+    <label>Order:</label>
+    <select [(ngModel)]="order"
+            (change)="change()">
+        <option disabled value="">Select order</option>
+        <option value="asc" selected>Ascending</option>
+        <option value="desc">Descending</option>
+    </select>
+
+    <label>sort by:</label>
+    <select [(ngModel)]="sortby"
+            (change)="change()">
+        <option disabled value="">Select field for sort</option>
+        <option *ngFor="let field of fields"
+                [value]="field"
+                [selected]="field==sortby"
+        >{{mapField(field)}}
+        </option>
+    </select>
+
+    <br>
+
+    <label>Filter by:</label>
+    <select [(ngModel)]="filterField"
+            (change)="change()">
+        <option disabled value="">Select field for filtering</option>
+        <option value="">no filter</option>
+        <option *ngFor="let field of fields"
+                [value]="field"
+                [selected]="field==filterField"
+        >{{mapField(field)}}
+        </option>
+    </select>
+
+    <label>Filter value:</label>
+    <input *ngIf="filterField != 'TechnikcaTaskStateId'"
+           type="text"
+           #input
+           (change)="change()"
+           (keyup)="rawFilterValue=input.value"
+           [disabled]="filterField == null"
+    />
+
+    <item-status *ngIf="filterField == 'TechnikcaTaskStateId'"
+                 (selectedStatusChange)="rawFilterValue=$event"
+    >
+    </item-status>
+</div>

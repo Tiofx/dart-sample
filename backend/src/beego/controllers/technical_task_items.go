@@ -20,6 +20,7 @@ func (c *TechnicalTaskItemsController) URLMapping() {
 	c.Mapping("Post", c.Post)
 	c.Mapping("GetOne", c.GetOne)
 	c.Mapping("GetAll", c.GetAll)
+	c.Mapping("GetCount", c.GetCount)
 	c.Mapping("Put", c.Put)
 	c.Mapping("Delete", c.Delete)
 }
@@ -47,10 +48,6 @@ func (c *TechnicalTaskItemsController) Post() {
 	c.ServeJSON()
 }
 
-func toIso8601(now time.Time) string {
-	return now.UTC().Format("2016-01-02T15:04:05-0700")
-}
-
 // GetOne ...
 // @Title Get One
 // @Description get TechnicalTaskItems by id
@@ -66,6 +63,39 @@ func (c *TechnicalTaskItemsController) GetOne() {
 		c.Data["json"] = err.Error()
 	} else {
 		c.Data["json"] = v
+	}
+	c.ServeJSON()
+}
+
+// Get count ...
+// @Title Get count
+// @Description get TechnicalTaskItems records number
+// @Param	query	query	string	false	"Filter. e.g. col1:v1,col2:v2 ..."
+// @Success 200 {int}
+// @Failure 403
+// @router /count [get]
+func (c *TechnicalTaskItemsController) GetCount() {
+	var query = make(map[string]string)
+
+	// query: k:v,k:v
+	if v := c.GetString("query"); v != "" {
+		for _, cond := range strings.Split(v, ",") {
+			kv := strings.SplitN(cond, ":", 2)
+			if len(kv) != 2 {
+				c.Data["json"] = errors.New("Error: invalid query key/value pair")
+				c.ServeJSON()
+				return
+			}
+			k, v := kv[0], kv[1]
+			query[k] = v
+		}
+	}
+
+	count, err := models.CountTechnicalTaskItems(query)
+	if err != nil {
+		c.Data["json"] = err.Error()
+	} else {
+		c.Data["json"] = count
 	}
 	c.ServeJSON()
 }

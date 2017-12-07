@@ -1,15 +1,18 @@
+<button class="button margins" (click)="goAdd()">Add new</button>
 <div>
     <div *ngFor="let item of items">
         <technical-task-item [item]="item">
         </technical-task-item>
 
-        <button (click)="removeItem(item.number)">Delete</button>
-        <!--<button (click)="">Edit</button>-->
 
-        <technical-task-item-form [item]="item"
-                                  [isIdReadonly]="true"
-                                  submitButtonName="Edit item"
-                                  (submitItem)="editItem($event)"
+        <button class="submitButton" (click)="goEditItem(itemVar.item)">Edit</button>
+        <button class="deleteButton" (click)="removeItem(item.number)">Delete</button>
+
+        <technical-task-item-form #itemVar
+                [item]="item"
+                [isIdReadonly]="true"
+                submitButtonName="Edit item"
+                (submitItem)="editItem($event)"
         ></technical-task-item-form>
     </div>
 
@@ -19,12 +22,8 @@
             (pageChange)="changePage($event)"
     ></page-selector>
 
-
-    <br>
-    <h3> Add new Item</h3>
-    <br>
-    <technical-task-item-form
-            submitButtonName="Add item"
-            (submitItem)="addItem($event)"
-    ></technical-task-item-form>
+    <!--<technical-task-item-form-->
+            <!--submitButtonName="Add item"-->
+            <!--(submitItem)="addItem($event)"-->
+    <!--&gt;</technical-task-item-form>-->
 </div>

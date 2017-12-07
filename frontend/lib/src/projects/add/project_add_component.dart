@@ -14,31 +14,23 @@ import 'package:frontend/src/base/project_service.dart';
   directives: const [CORE_DIRECTIVES, formDirectives],
 )
 
-class ProjectAddComponent implements OnInit {
-  @Input()
+class ProjectAddComponent {
   Project project;
 
   final ProjectService _projectService;
-  final RouteParams _routeParams;
   final Location _location;
-  final Router _router;
+  final _submit = new StreamController<Project>();
 
-  ProjectAddComponent(this._projectService,
-      this._routeParams,
-      this._location,
-      this._router);
+  ProjectAddComponent(this._projectService, this._location);
 
-  Future<Null> ngOnInit() async {
-    var _id = _routeParams.get('id');
-    var id = int.parse(_id ?? '', onError: (_) => null);
-    if (id != null) project = await (_projectService.getProject(id));
-  }
+  @Output("submitItem")
+  Stream<Project> get submit => _submit.stream;
 
   onSubmit() {
+    print("asda");
     _submit.add(project);
+    print("aaaaaa");
   }
-
-  final _submit = new StreamController<Project>();
 
   void goBack() => _location.back();
 
@@ -50,4 +42,9 @@ class ProjectAddComponent implements OnInit {
 
   void addNew(){}
 
+//  clear() {
+//    project.id = null;
+//    project.author_id = null;
+//    project.name = "";
+//  }
 }

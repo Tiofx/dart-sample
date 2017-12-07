@@ -1,19 +1,61 @@
 <div class="parentDiv">
-    <div>
-        <h2>Adding new project!</h2>
+    <!--<div>-->
+        <!--<h2>Adding new project!</h2>-->
+        <!--<div class="labelMargin"-->
+             <!--[(ngModel)]="project.id">-->
+            <!--<label>id: </label>-->
+            <!--<input placeholder="id" />-->
+        <!--</div>-->
+        <!--<div class="labelMargin"-->
+             <!--[(ngModel)]="project.author_id">-->
+            <!--<label> Author id: </label>-->
+            <!--<input placeholder="author id" />-->
+        <!--</div>-->
+        <!--<div class="labelMargin"-->
+             <!--[(ngModel)]="project.name">-->
+            <!--<label> Project: </label>-->
+            <!--<input placeholder="project" />-->
+        <!--</div>-->
+        <!--<button (click)="onSubmit()" class="submitButton">Add</button>-->
+        <!--<button (click)="goBack()" class="backButton">Back</button>-->
+    <!--</div>-->
+    <form (ngSubmit)="addItem(item)" #itemForm="ngForm">
+        <h3 class="labelMargin"> Add new Item </h3>
         <div class="labelMargin">
-            <label>id: </label>
-            <input placeholder="id" />
+            <label for="Id">Id: </label>
+            <input type="number" id="Id"
+                   [readonly]="isIdReadonly"
+                   [ngModel]="project.id"
+                   ngControl="Id"
+                   placeholder="id"
+            >
         </div>
-        <div class="labelMargin">
-            <label> Author id: </label>
-            <input placeholder="author id" />
+
+        <div class="form-group labelMargin">
+            <label for="authorId">Author id: </label>
+            <input id="authorId" required
+                   [(ngModel)]="item.name"
+                   ngControl="Name"
+                   placeholder="name"
+            >
         </div>
-        <div class="labelMargin">
-            <label> Project: </label>
-            <input placeholder="project" />
+
+        <div class="form-group labelMargin">
+            <label for="Description">Description: </label>
+            <textarea rows="3" id="Description"
+                      [(ngModel)]="item.description"
+                      ngControl="Description"
+                      placeholder="Description"
+            >
+            </textarea>
         </div>
-        <button (click)="addNew()" class="addButton">Add</button>
-        <button (click)="goBack()" class="backButton">Back</button>
-    </div>
+
+        <button class="submitButton"
+                type="submit"
+                [disabled]="!itemForm.form.valid"
+        >{{submitButtonName}}</button>
+
+        <button class="backButton" type="reset" (click)="clear()">Clear</button>
+    </form>
+
 </div>

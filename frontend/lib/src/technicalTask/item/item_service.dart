@@ -13,16 +13,16 @@ class ItemService {
 
   ItemService(this._http);
 
-  Future<Item> addItem(Item item) async =>
-      _http.post(
-          new Uri.http(
-              _authority, _basePath
-          ),
-          body: JSON.encode(item?.toJson())
-      )
-          .then(_extractData)
-          .then((body) => new Item.fromJson(body))
-          .catchError(_handleError);
+//  Future<Item> addItem(Item item) async =>
+//      _http.post(
+//          new Uri.http(
+//              _authority, _basePath
+//          ),
+//          body: JSON.encode(item?.toJson())
+//      )
+//          .then(_extractData)
+//          .then((body) => new Item.fromJson(body))
+//          .catchError(_handleError);
 
   Future<String> editItem(Item item) async =>
       _http.put(
@@ -40,6 +40,30 @@ class ItemService {
           .catchError(_handleError);
 
   dynamic _extractData(Response response) => JSON.decode(response.body);
+
+  Future<Item> getOneItem(int id) async {
+    print("GET ITEM");
+    print(id);
+    return (await getItemsWithoutPage()).firstWhere((item) => item.number == id);
+  }
+
+  Future<List<Item>> getItemsWithoutPage() async {
+    print("zashol na ogonek");
+    try {
+      final response = await _http.get(new Uri.http(
+        _authority,
+        _basePath,
+      ));
+      print(_extractData(response));
+
+      final items = _extractData(response)
+          .map((value) => new Item.fromJson(value))
+          .toList();
+      return items;
+    } catch (e) {
+      throw _handleError(e);
+    }
+  }
 
   Future<List<Item>> getItems(int pageNumber,
       int perPage,
@@ -60,6 +84,8 @@ class ItemService {
               .map((value) => new Item.fromJson(value))
               .toList())
           .catchError(_handleError);
+
+
 
   Exception _handleError(dynamic e) {
     print(e);

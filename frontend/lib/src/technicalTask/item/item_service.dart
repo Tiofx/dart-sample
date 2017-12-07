@@ -13,16 +13,16 @@ class ItemService {
 
   ItemService(this._http);
 
-//  Future<Item> addItem(Item item) async =>
-//      _http.post(
-//          new Uri.http(
-//              _authority, _basePath
-//          ),
-//          body: JSON.encode(item?.toJson())
-//      )
-//          .then(_extractData)
-//          .then((body) => new Item.fromJson(body))
-//          .catchError(_handleError);
+  Future<Item> addItem(Item item) async =>
+      _http.post(
+          new Uri.http(
+              _authority, _basePath
+          ),
+          body: JSON.encode(item?.toJson())
+      )
+          .then(_extractData)
+          .then((body) => new Item.fromJson(body))
+          .catchError(_handleError);
 
   Future<String> editItem(Item item) async =>
       _http.put(

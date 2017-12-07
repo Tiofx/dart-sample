@@ -18,6 +18,7 @@ class Item implements RequestData {
       new Item(
           number: RequestData.toInt(json['Id']),
           name: json['Name'],
+//          author: new User.fromJson(json["AuthorId"]),
           status: _toItemStatus(json['TechnikcaTaskStateId']['Id']),
           lastChangeDate: RequestData.toDateTime(json['Date']),
           description: json['Description']);

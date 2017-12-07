@@ -16,16 +16,14 @@ import 'package:frontend/src/base/project_service.dart';
 
 class ProjectDetailComponent implements OnInit {
   Project project;
-
+  bool deleteSuccessfull = false;
   final ProjectService _projectService;
   final RouteParams _routeParams;
   final Location _location;
-  final Router _router;
 
   ProjectDetailComponent(this._projectService,
       this._routeParams,
-      this._location,
-      this._router);
+      this._location);
 
   Future<Null> ngOnInit() async {
     var _id = _routeParams.get('id');
@@ -36,8 +34,7 @@ class ProjectDetailComponent implements OnInit {
   void goBack() => _location.back();
 
   goDelete(int recordId) async{
-    print(recordId);
     var result = await _projectService.deleteProject(recordId);
-    print(result);
+    deleteSuccessfull = true;
   }
 }

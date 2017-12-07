@@ -1,5 +1,10 @@
 <div class="parentDiv">
     <div *ngIf="project != null">
+        <div *ngIf="deleteSuccessfull != false">
+            <h2 class="succesfullDelete">
+                Запись успешно удалена
+            </h2>
+        </div>
         <h2>{{project.name}} details!</h2>
         <div>
             <label>id: </label>{{project.id}}</div>

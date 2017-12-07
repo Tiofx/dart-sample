@@ -8,14 +8,11 @@ class Role implements RequestData {
 
   @override
   factory Role.fromJson(Map<String, dynamic> json) =>
-      new Role(
-          id: RequestData.toInt(json['Id']),
-          name: json['Name']
-      );
+      json == null ? null
+      : new Role(id: RequestData.toInt(json['Id']), name: json['Name']);
 
   @override
-  Map toJson() =>
-      {
+  Map toJson() => {
         'Id': id,
         'Name': name,
       };

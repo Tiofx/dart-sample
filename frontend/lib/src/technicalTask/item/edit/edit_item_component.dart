@@ -15,10 +15,8 @@ import 'package:http/http.dart';
   styleUrls: const ['edit_item_component.css'],
   directives: const [CORE_DIRECTIVES, formDirectives],
 )
-
 class ItemEditComponent implements OnInit {
   Item item;
-
   final RouteParams _routeParams;
   final Location _location;
   static const _authority = 'localhost:8080';
@@ -30,7 +28,7 @@ class ItemEditComponent implements OnInit {
       this._location,
       this._http);
 
-  Future<Item> ngOnInit() async {
+  Future<Null> ngOnInit() async {
     var _id = _routeParams.get('id');
     var id = int.parse(_id ?? '', onError: (_) => null);
     if (id != null)
@@ -40,11 +38,11 @@ class ItemEditComponent implements OnInit {
           _authority,
           "$_basePath/$id",
         ));
-        print(_extractData(response));
+//        print(_extractData(response));
 
-        final items = new Item.fromJson(_extractData(response));
-
-        return items;
+        item = new Item.fromJson(_extractData(response));
+//        print(item.author);
+//        return item;
       } catch (e) {
         throw _handleError(e);
       }

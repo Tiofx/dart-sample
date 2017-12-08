@@ -6,6 +6,8 @@ import 'package:frontend/src/projects/add/project_add_component.dart';
 import 'package:frontend/src/projects/dashboard_component.dart';
 import 'package:frontend/src/projects/details/project_detail_component.dart';
 import 'package:frontend/src/projects/stages/projects_component.dart';
+import 'package:frontend/src/tasks/add/task_add_component.dart';
+import 'package:frontend/src/tasks/details/task_detail_component.dart';
 import 'package:frontend/src/tasks/stages/tasks_component.dart';
 import 'package:frontend/src/technicalTask/item/add/item_form_component.dart';
 import 'package:frontend/src/technicalTask/item/edit/edit_item_component.dart';
@@ -28,7 +30,10 @@ import 'package:frontend/src/technicalTask/table/table_component.dart' as techni
   providers: const [ProjectService],
 )
 @RouteConfig(const [
-  const Redirect(path: '/', redirectTo: const ['Dashboard']),
+  const Redirect(
+      path: '/',
+      redirectTo: const ['Dashboard']
+  ),
   const Route(
     path: '/dashboard',
     name: 'Dashboard',
@@ -72,6 +77,18 @@ import 'package:frontend/src/technicalTask/table/table_component.dart' as techni
       path: '/addItem',
       name: 'AddItem',
       component: ItemFormComponent
+  ),
+
+  const Route(
+      path: '/addTask',
+      name: 'AddTask',
+      component: TaskAddComponent
+  ),
+
+  const Route(
+    path: '/task/:id',
+    name: 'TaskDetail',
+    component: TaskDetailComponent,
   ),
 
 ])

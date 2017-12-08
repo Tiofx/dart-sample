@@ -1,0 +1,77 @@
+<div class="parentDiv">
+    <form (ngSubmit)="addTask(task)" #itemForm="ngForm">
+        <div *ngIf="addTrue != false">
+            <h2 class="succesfullAdding">
+                Запись успешно добавлена
+            </h2>
+        </div>
+        <h3 class="labelMargin"> Add new task </h3>
+        <div class="labelMargin">
+            <label for="Id">Id: </label>
+            <input type="number" id="Id"
+                   [ngModel]="task.id"
+                   (ngModelChange)="intRound($event)"
+                   ngControl="Id"
+                   placeholder="id"
+            >
+        </div>
+
+        <div class="form-group labelMargin">
+            <label for="stagesId">Stage id: </label>
+            <input type="number" id="stagesId" required
+                   [(ngModel)]="task.stages_id"
+                   (ngModelChange)="intRoundStg($event)"
+                   ngControl="stagesId"
+                   placeholder="stages id"
+            >
+        </div>
+
+        <div class="form-group labelMargin">
+            <label for="TechnicalTaskItemId">Technical task item id: </label>
+            <input type="number" id="TechnicalTaskItemId" required
+                   [(ngModel)]="task.technical_task_item_id"
+                   (ngModelChange)="intRoundTTI($event)"
+                   ngControl="TechnicalTaskItemId"
+                   placeholder="Technikal task item id"
+            >
+        </div>
+
+        <div class="form-group labelMargin">
+            <label for="Name">Name: </label>
+            <input id="Name"
+                      [(ngModel)]="task.name"
+                      ngControl="Name"
+                      placeholder="Name"
+            >
+        </div>
+
+        <div class="form-group labelMargin">
+            <label for="Description">Description: </label>
+            <textarea rows="3" id="Description"
+                      [(ngModel)]="task.description"
+                      ngControl="Description"
+                      placeholder="Description"
+            >
+            </textarea>
+        </div>
+
+        <div class="form-group labelMargin">
+            <label for="DeveloperId">Developer id: </label>
+            <input type="number" id="DeveloperId" required
+                   [(ngModel)]="task.developer_id"
+                   (ngModelChange)="intRoundDev($event)"
+                   ngControl="DeveloperId"
+                   placeholder="Developer id"
+            >
+        </div>
+
+        <button class="submitButton"
+                type="submit"
+                [disabled]="!itemForm.form.valid"
+        >Add
+        </button>
+
+        <button class="backButton" type="reset" (click)="">Clear</button>
+    </form>
+
+</div>

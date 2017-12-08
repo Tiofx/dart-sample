@@ -31,7 +31,7 @@ class ProjectsComponent implements OnInit {
 
   void ngOnInit() => getProjects();
 
-  void onSelect(Project hero) => selectedProject = hero;
+  void onSelect(Project project) => selectedProject = project;
 
   Future<Null> gotoDetail() => _router.navigate([
     'ProjectDetail',

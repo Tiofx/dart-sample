@@ -4,13 +4,9 @@ import 'dart:convert';
 import 'package:angular/angular.dart';
 import 'package:frontend/src/base/project.dart';
 import 'package:http/http.dart';
-//import 'package:frontend/src/base/mock_projects.dart';
 
 @Injectable()
 class ProjectService {
-//  Future<List<Project>> getProjects() async => mockProjects;
-//  Future<Project> getProject(int id) async =>
-//      (await getProjects()).firstWhere((project) => project.id == id);
   static const _authority = 'localhost:8080';
   static const _itemsPath = 'v1/projects';
   final Client _http;

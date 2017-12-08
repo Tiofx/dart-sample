@@ -1,17 +1,32 @@
 <h1>AngularDart GolangBeego App</h1>
 
 <h3>Points of statement of work</h3>
-<ul class="heroes">
-    <li *ngFor="let task of tasks"
-        [class.selected]="task === selectedProject"
-        (click)="onSelect(task)">
-        <span class="badge">{{task.id}}</span> {{task.name}}
-    </li>
-</ul>
+<button (click)="gotoAddNew()" class="button button1">Add new task</button>
+<table id="customers">
+    <tr>
+        <th>Id</th>
+        <th>Stage id</th>
+        <th>Technikal task item id</th>
+        <th>Name</th>
+        <th>Description</th>
+        <th>Developer id</th>
+        <!--<th>Edit</th>-->
+    </tr>
+    <tr *ngFor="let task of tasks">
+        <td>{{task.id}}</td>
+        <td>{{task.stages_id}}</td>
+        <td>{{task.technical_task_item_id}}</td>
+        <td>{{task.name}}</td>
+        <td>{{task.description}}</td>
+        <td>{{task.developer_id}}</td>
+        <button class="editingButton" (click)="onSelect(task)">Edit</button>
+        <button class="deletingBuutton" (click)="goDelete(task.id)">Delete</button>
+    </tr>
+</table>
 
-<div *ngIf="selectedProject != null">
+<div *ngIf="selectedTask != null">
     <h2>
-        {{selectedTask.name | uppercase}} is my project
+        {{selectedTask.name | uppercase}} is current selected
     </h2>
     <button (click)="gotoDetail()">View Details</button>
 </div>

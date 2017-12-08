@@ -10,11 +10,13 @@ import 'package:frontend/src/base/task_service.dart';
   selector: 'my-tasks',
   templateUrl: 'tasks_component.html',
   styleUrls: const ['tasks_component.css'],
+  providers: const [TaskService],
   directives: const [CORE_DIRECTIVES],
   pipes: const [COMMON_PIPES],
 )
 
 class TasksComponent implements OnInit {
+  bool deleteSuccessfull = false;
   final TaskService _taskService;
   final Router _router;
   List<Task> tasks;
@@ -26,15 +28,24 @@ class TasksComponent implements OnInit {
       );
 
   Future<Null> getTasks() async {
-    tasks = await _taskService.getTasks();
+    tasks = await _taskService.getTaskes();
   }
 
-  void ngOnInit() => getTasks();
+  void ngOnInit() { getTasks(); }
 
-  void onSelect(Task hero) => selectedTask = hero;
+  void onSelect(Task task) => selectedTask = task;
 
   Future<Null> gotoDetail() => _router.navigate([
     'TaskDetail',
     {'id': selectedTask.id.toString()}
   ]);
+
+  Future<Null> gotoAddNew() => _router.navigate([
+    'AddTask',
+  ]);
+
+  goDelete(int recordId) async{
+    var result = await _taskService.deleteTask(recordId);
+    deleteSuccessfull = true;
+  }
 }

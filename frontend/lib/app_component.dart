@@ -7,6 +7,8 @@ import 'package:frontend/src/projects/dashboard_component.dart';
 import 'package:frontend/src/projects/details/project_detail_component.dart';
 import 'package:frontend/src/projects/stages/projects_component.dart';
 import 'package:frontend/src/tasks/stages/tasks_component.dart';
+import 'package:frontend/src/technicalTask/item/add/item_form_component.dart';
+import 'package:frontend/src/technicalTask/item/edit/edit_item_component.dart';
 import 'package:frontend/src/technicalTask/table/table_component.dart' as technical_task;
 
 @Component(
@@ -52,6 +54,14 @@ import 'package:frontend/src/technicalTask/table/table_component.dart' as techni
 
   const Route(
     path: '/addNewProject', name: 'AddNewProject', component: ProjectAddComponent
+  ),
+
+  const Route(
+      path: '/editItem/:id', name: 'EditItem', component: ItemEditComponent
+  ),
+
+  const Route(
+      path: '/addItem', name: 'AddItem', component: ItemFormComponent
   ),
 
 ])

@@ -53,6 +53,30 @@ class ItemService {
           .catchError(_handleError);
 
 
+  Future<Item> getOneItem(int id) async {
+    print("GET ITEM");
+    print(id);
+    return (await getItemsWithoutPage()).firstWhere((item) => item.number == id);
+  }
+
+  Future<List<Item>> getItemsWithoutPage() async {
+    print("zashol na ogonek");
+    try {
+      final response = await _http.get(new Uri.http(
+        _authority,
+        _basePath,
+      ));
+      print(_extractData(response));
+
+      final items = _extractData(response)
+          .map((value) => new Item.fromJson(value))
+          .toList();
+      return items;
+    } catch (e) {
+      throw _handleError(e);
+    }
+  }
+
   Future<List<Item>> getItems(int pageNumber,
       int perPage,
       {String query, String sortby, String order, int offset = 0}) async =>

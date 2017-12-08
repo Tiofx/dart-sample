@@ -1,7 +1,9 @@
+import 'dart:async';
 import 'dart:convert';
 import 'package:angular/angular.dart';
 import 'package:angular_components/angular_components.dart';
-import 'package:frontend/src/baseEntry/user.dart';
+
+import 'package:angular_router/angular_router.dart';
 import 'package:frontend/src/pageSelector/page_selector_component.dart';
 import 'package:frontend/src/technicalTask/item/add/item_form_component.dart';
 import 'package:frontend/src/technicalTask/item/item.dart';
@@ -15,6 +17,7 @@ import 'package:frontend/src/technicalTask/table/util/per_page_component.dart';
 @Component(
     selector: 'technical-task-table',
     templateUrl: 'table_component.html',
+    styleUrls: const ['table_component.css'],
     directives: const[
       CORE_DIRECTIVES,
       materialDirectives,
@@ -29,6 +32,9 @@ import 'package:frontend/src/technicalTask/table/util/per_page_component.dart';
     providers: const [ItemService]
 )
 class TableComponent implements OnInit {
+  Item item;
+  final Router _router;
+
   int _recordNumber = 1;
   ItemStatus statusTest = ItemStatus.done;
   final ItemService service;
@@ -44,13 +50,11 @@ class TableComponent implements OnInit {
 
   FilterComponent filter;
 
-//  int maxPageNumber = 1;
-
   int get maxPageNumber => (_recordNumber / perPage).ceil();
 
   List<Item> items = [];
 
-  TableComponent(this.service);
+  TableComponent(this.service, this._router);
 
   @override
   ngOnInit() async {
@@ -69,12 +73,12 @@ class TableComponent implements OnInit {
     await update();
   }
 
-  addItem(Item item) async {
-    var newItem = await service.addItem(item);
-    print("new item: ${newItem.toString()}");
+  Future<Null> goAdd() => _router.navigate(['AddItem']);
 
-    update();
-  }
+  Future<Null> goEditItem(Item item) => _router.navigate([
+      'EditItem',
+      {'id': item.number.toString()}
+    ]);
 
   editItem(Item item) async {
     var result = await service.editItem(item);

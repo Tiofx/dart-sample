@@ -9,7 +9,6 @@ class Project {
           _toInt(json['Id']),
           _toInt(json['AuthorId']['Id']),
           json['Name']);
-
 }
 
 int _toInt(raw) => raw is int ? raw : int.parse(raw);

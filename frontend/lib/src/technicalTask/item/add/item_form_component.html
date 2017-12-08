@@ -1,35 +1,49 @@
-<form (ngSubmit)="onSubmit()" #itemForm="ngForm">
+<div class="parentDiv">
+    <form (ngSubmit)="addItem(item)" #itemForm="ngForm">
+        <h3 class="labelMargin"> Add new Item </h3>
+        <div class="labelMargin">
+            <label for="Id">Id: </label>
+            <input type="number" id="Id"
+                   [readonly]="isIdReadonly"
+                   [ngModel]="item.number"
+                   (ngModelChange)="setUpNumber($event)"
+                   ngControl="Id"
+                   placeholder="id"
+            >
+        </div>
 
-    <div class="form-group">
-        <lavel for="Id"></lavel>
-        <input type="number" id="Id"
-               [readonly]="isIdReadonly"
-               [ngModel]="item.number"
-               (ngModelChange)="setUpNumber($event)"
-               ngControl="Id"
-        >
-    </div>
+        <div class="form-group labelMargin">
+            <label for="Name">Name: </label>
+            <input id="Name" required
+                   [(ngModel)]="item.name"
+                   ngControl="Name"
+                   placeholder="name"
+            >
+        </div>
 
-    <div class="form-group">
-        <lavel for="Name"></lavel>
-        <input id="Name" required
-               [(ngModel)]="item.name"
-               ngControl="Name"
-        >
-    </div>
+        <div class="form-group selectStyles labelMargin">
+            <label for="Status">Status: </label>
+            <item-status id="Status"
+                         [(selectedStatus)]="item.status"
+                         ngControl="Status">
+            </item-status>
+        </div>
 
-    <div class="form-group">
-        <item-status [(selectedStatus)]="item.status">
-        </item-status>
-    </div>
+        <div class="form-group labelMargin">
+            <label for="Description">Description: </label>
+            <textarea rows="3" id="Description"
+                      [(ngModel)]="item.description"
+                      ngControl="Description"
+                      placeholder="Description"
+            >
+            </textarea>
+        </div>
 
-    <div class="form-group">
-        <lavel for="Description"></lavel>
-        <textarea rows="3" id="Description"
-                  [(ngModel)]="item.description"
-                  ngControl="Description"></textarea>
-    </div>
+        <button class="submitButton"
+                type="submit"
+                [disabled]="!itemForm.form.valid"
+        >{{submitButtonName}}</button>
 
-    <button type="submit" [disabled]="!itemForm.form.valid">{{submitButtonName}}</button>
-    <button type="reset" (click)="clear()">Clear</button>
-</form>
+        <button class="backButton" type="reset" (click)="clear()">Clear</button>
+    </form>
+</div>

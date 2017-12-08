@@ -5,20 +5,24 @@ import (
 	"path/filepath"
 	"os/exec"
 	"bufio"
-
 )
 
 func main() {
 	channel := make(chan string)
 	defer close(channel)
-	commandForStartBackend := exec.Command("bee", "run", "-downdoc=true", "-gendoc=true" )
+
+	commandForStartBackend := exec.Command("bee", "run", "-downdoc=true", "-gendoc=true")
 	commandForStartBackend.Dir = getPathToBackend()
+
+	admin := exec.Command("go", "run", "src/main/main.go")
+	admin.Dir = getPathToAdminSystem()
 
 	commandForStartFrontend := exec.Command("pub", "serve", "--port=8081")
 	commandForStartFrontend.Dir = getPathToFrontend()
 
-	go startSide("<|--- | backend  | ", commandForStartBackend, channel)
-	go startSide("---|> | frontend | ", commandForStartFrontend, channel)
+	go startSide("<|--- | backend      | ", commandForStartBackend, channel)
+	go startSide("-<|>- | admin system | ", admin, channel)
+	go startSide("---|> | frontend     | ", commandForStartFrontend, channel)
 	//docker start confident_lamarr
 
 	for temp := range channel {
@@ -39,6 +43,16 @@ func startSide(tag string, commandForStartBackend *exec.Cmd, c chan string) {
 			c <- tag + "error " + err.Error()
 			break
 		}
+	}
+}
+
+func getPathToAdminSystem() string {
+	if projectPath, err := filepath.Abs("../"); err == nil {
+		return filepath.Join(projectPath, "adminSystem")
+
+	} else {
+		fmt.Print(err.Error())
+		panic(err)
 	}
 }
 

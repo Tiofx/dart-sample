@@ -24,8 +24,6 @@ class ProjectService {
           _itemsPath,
       ));
 
-      print(_extractData(response));
-
       final heroes = _extractData(response)
           .map((value) => new Project.fromJson(value))
           .toList();

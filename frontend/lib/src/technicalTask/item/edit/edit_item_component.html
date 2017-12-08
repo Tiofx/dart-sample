@@ -2,11 +2,19 @@
     <div *ngIf="item != null">
         <h2>{{item.name}} details!</h2>
         <div>
-            <label>id: </label>{{item.number}}</div>
+            <label>id: </label>{{item.number}}
+        </div>
+        <!--<div>-->
+            <!--<label> Author id: </label>-->
+            <!--<input [(ngModel)]="item.author" placeholder="project" />-->
+        <!--</div>-->
         <div>
             <label> Item: </label>
             <input [(ngModel)]="item.name" placeholder="item" />
         </div>
+
         <button (click)="goBack()" class="backButton">Back</button>
     </div>
 </div>
+
+

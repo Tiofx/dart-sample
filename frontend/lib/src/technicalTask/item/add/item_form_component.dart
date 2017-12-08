@@ -50,8 +50,6 @@ class ItemFormComponent {
   }
 
   Future<Item> addItem(Item item) async {
-      print(item.toJson());
-
       _http.post(
           new Uri.http(
               _authority, _basePath
@@ -62,6 +60,7 @@ class ItemFormComponent {
           .then((body) => new Item.fromJson(body))
           .catchError(_handleError);
   }
+
   dynamic _extractData(Response response) => JSON.decode(response.body);
 
   Exception _handleError(dynamic e) {

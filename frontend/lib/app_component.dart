@@ -45,23 +45,33 @@ import 'package:frontend/src/technicalTask/table/table_component.dart' as techni
     component: technical_task.TableComponent,
   ),
   const Route(
-      path: '/projects', name: 'Projects', component: ProjectsComponent
+      path: '/projects',
+      name: 'Projects',
+      component: ProjectsComponent
   ),
 
   const Route(
-    path: '/tasks', name: 'Tasks', component: TasksComponent
+      path: '/tasks',
+      name: 'Tasks',
+      component: TasksComponent
   ),
 
   const Route(
-    path: '/addNewProject', name: 'AddNewProject', component: ProjectAddComponent
+      path: '/addNewProject',
+      name: 'AddNewProject',
+      component: ProjectAddComponent
   ),
 
   const Route(
-      path: '/editItem/:id', name: 'EditItem', component: ItemEditComponent
+      path: '/editItem/:id',
+      name: 'EditItem',
+      component: ItemEditComponent
   ),
 
   const Route(
-      path: '/addItem', name: 'AddItem', component: ItemFormComponent
+      path: '/addItem',
+      name: 'AddItem',
+      component: ItemFormComponent
   ),
 
 ])

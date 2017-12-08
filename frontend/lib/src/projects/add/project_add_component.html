@@ -1,31 +1,16 @@
 <div class="parentDiv">
-    <!--<div>-->
-        <!--<h2>Adding new project!</h2>-->
-        <!--<div class="labelMargin"-->
-             <!--[(ngModel)]="project.id">-->
-            <!--<label>id: </label>-->
-            <!--<input placeholder="id" />-->
-        <!--</div>-->
-        <!--<div class="labelMargin"-->
-             <!--[(ngModel)]="project.author_id">-->
-            <!--<label> Author id: </label>-->
-            <!--<input placeholder="author id" />-->
-        <!--</div>-->
-        <!--<div class="labelMargin"-->
-             <!--[(ngModel)]="project.name">-->
-            <!--<label> Project: </label>-->
-            <!--<input placeholder="project" />-->
-        <!--</div>-->
-        <!--<button (click)="onSubmit()" class="submitButton">Add</button>-->
-        <!--<button (click)="goBack()" class="backButton">Back</button>-->
-    <!--</div>-->
-    <form (ngSubmit)="addItem(item)" #itemForm="ngForm">
+    <form (ngSubmit)="addProject(project)" #itemForm="ngForm">
+        <div *ngIf="addTrue != false">
+            <h2 class="succesfullAdding">
+                Запись успешно добавлена
+            </h2>
+        </div>
         <h3 class="labelMargin"> Add new Item </h3>
         <div class="labelMargin">
             <label for="Id">Id: </label>
             <input type="number" id="Id"
-                   [readonly]="isIdReadonly"
                    [ngModel]="project.id"
+                   (ngModelChange)="intRound($event)"
                    ngControl="Id"
                    placeholder="id"
             >
@@ -33,8 +18,9 @@
 
         <div class="form-group labelMargin">
             <label for="authorId">Author id: </label>
-            <input id="authorId" required
-                   [(ngModel)]="item.name"
+            <input type="number" id="authorId" required
+                   [(ngModel)]="project.author_id"
+                   (ngModelChange)="intRoundAuth($event)"
                    ngControl="Name"
                    placeholder="name"
             >
@@ -43,7 +29,7 @@
         <div class="form-group labelMargin">
             <label for="Description">Description: </label>
             <textarea rows="3" id="Description"
-                      [(ngModel)]="item.description"
+                      [(ngModel)]="project.name"
                       ngControl="Description"
                       placeholder="Description"
             >
@@ -53,9 +39,9 @@
         <button class="submitButton"
                 type="submit"
                 [disabled]="!itemForm.form.valid"
-        >{{submitButtonName}}</button>
+        >Add</button>
 
-        <button class="backButton" type="reset" (click)="clear()">Clear</button>
+        <button class="backButton" type="reset" (click)="">Clear</button>
     </form>
 
 </div>

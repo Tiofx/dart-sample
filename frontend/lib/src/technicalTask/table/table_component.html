@@ -11,7 +11,7 @@
     <div *ngFor="let item of items">
         <technical-task-item [item]="item">
         </technical-task-item>
-        
+
         <button class="submitButton" (click)="goEditItem(item)">Edit</button>
         <button class="deleteButton" (click)="removeItem(item.number)">Delete</button>
 

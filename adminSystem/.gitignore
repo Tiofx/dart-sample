@@ -32,6 +32,5 @@ bee
 .goxc.local.json
 
 /bin/*
-/src/github.com
-/src/golang.org
-/src/go4.org
+/src/*
+!/src/main

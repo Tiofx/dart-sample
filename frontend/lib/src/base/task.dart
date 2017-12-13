@@ -16,7 +16,7 @@ class Task {
         _toInt(json['Id']),
         _toInt(json['StagesId']['Id']),
         _toInt(json['TechnicalTaskItemId']['Id']),
-        null,
+        1,
         json['Name'],
         json['Description'],
         _toInt(json['DeveloperId']['Id']),
